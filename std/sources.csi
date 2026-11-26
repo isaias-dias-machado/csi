@@ -63,11 +63,11 @@ source monotonicity_union
   R u U c S u V
 
 source transitivity_upper_side_lower
-  given M c S
+  given M c S:
     R c M <= R c S
 
 source transitivity_lower_side_raise
-  given R c M
+  given R c M:
     M c R <= R c S
 
 -- relation division
