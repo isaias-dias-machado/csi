@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 4 · Exercício 29 — simplicidade da união
+--
+-- Provar: M ∪ N é simples ≡ M, N são simples e M · N° ⊆ id (Union simplicity (45)).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex29_union_simplicity
+proof
+  simple (M u N)
+  <=> { definitions.simple, definitions.image }
+  (M u N) ; (M u N)^ c id
+  <=> { sources.converse_union }
+  (M u N) ; (M^ u N^) c id
+  <=> { sources.right_linearity, sources.left_linearity }
+  M ; M^ u M ; N^ u N ; M^ u N ; N^ c id
+  <=> { sources.union_universal }
+  M ; M^ c id /\ M ; N^ c id /\ N ; M^ c id /\ N ; N^ c id
+  <=> { sources.isomorphism, sources.contravariance, sources.involution, sources.id_converse, sources.and_idempotent }
+  M ; M^ c id /\ N ; N^ c id /\ M ; N^ c id
+  <=> { definitions.image, definitions.simple }
+  simple M /\ simple N /\ M ; N^ c id
+
+-- M ; N^ c id: onde M e N estão as duas definidas, dão o mesmo resultado.

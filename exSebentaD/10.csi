@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 3 · Exercício 10 — kernel e imagem de desenhos
+--
+-- Etiquetar os elementos dos desenhos (injective-surjective-bijective) e calcular o
+-- kernel e a imagem de cada relação. Porque é que são todas funções?
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário
+
+import std/sources
+import std/definitions
+
+-- (a) injetiva, não sobrejetiva   f : {1,2,3} -> {a,b,c,d}, f 1 = a, f 2 = b, f 3 = c
+--     ker f = {(1,1),(2,2),(3,3)} = id          -> injetiva
+--     img f = {(a,a),(b,b),(c,c)} ⊊ id           -> simples, falta (d,d): não sobrejetiva
+--
+-- (b) sobrejetiva, não injetiva   g : {1,2,3,4} -> {a,b,c}, g 3 = g 4 = c
+--     ker g = id u {(3,4),(4,3)}                 -> não injetiva
+--     img g = id                                 -> sobrejetiva
+--
+-- (c) bijetiva                    h : {1,2,3} -> {a,b,c}
+--     ker h = id, img h = id                     -> injetiva e sobrejetiva
+--
+-- São todas funções: de cada elemento da esquerda sai exatamente uma seta,
+-- pelo menos uma => id c kernel (inteira); no máximo uma => image c id (simples).
+-- inteira + simples = função { Criteria (23), definitions.function }

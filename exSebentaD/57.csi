@@ -1,0 +1,22 @@
+-- Sebenta v3 · Aula 6 · Exercício 57 — uma relação definida sobre listas
+--
+-- R : A* → A definida por R · in = [⊥, π1 ∪ R · π2], com in = [nil, cons].
+-- (a) Obter a definição pointwise de R. (b) Explicar a R x por palavras.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); a parte pointwise (listas) fica em comentário
+
+import std/sources
+import std/definitions
+
+theorem ex57_equations
+proof
+  R ; either nil cons = either bot (p1 u R ; p2)
+  <=> { sources.either_fusion }
+  either (R ; nil) (R ; cons) = either bot (p1 u R ; p2)
+  <=> { sources.either_universal }
+  either (R ; nil) (R ; cons) ; i1 = bot /\ either (R ; nil) (R ; cons) ; i2 = p1 u R ; p2
+  <=> { sources.either_cancel_1, sources.either_cancel_2 }
+  R ; nil = bot /\ R ; cons = p1 u R ; p2
+
+-- pointwise:  a R [ ] <=> FALSE        a R (h : t) <=> a = h \/ a R t
+-- (b) a R x sse "a ocorre na lista x": R é a pertença a listas.

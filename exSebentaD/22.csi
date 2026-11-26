@@ -1,0 +1,16 @@
+-- Sebenta v3 · Aula 4 · Exercício 22 — Eats é transitiva? simétrica? …
+--
+-- Verificar se Eats (exercício 13) é transitiva, simétrica, antissimétrica e conexa.
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário
+
+import std/sources
+import std/definitions
+
+-- transitiva?     Fox Eats Goose e Goose Eats Beans, mas não Fox Eats Beans:
+--                 Eats ; Eats tem o 1 em (Fox, Beans), logo Eats ; Eats ⊄ Eats  -> não
+-- simétrica?      Fox Eats Goose mas não Goose Eats Fox                        -> não
+-- antissimétrica? Eats n Eats^ = bot c id                                      -> sim
+-- conexa?         Eats u Eats^ /= top (diagonal, Fox-Beans, ...)                -> não
+--
+-- Eats é só antissimétrica (e, da Aula 3, simples e injetiva).

@@ -1,0 +1,14 @@
+-- Sebenta v3 · Aula 4 · Exercício 31 — ⊤ = ! = id no tipo 1
+--
+-- Explicar por palavras as igualdades (1 ← 1 : ⊤) = (1 ← 1 : !) = id (slides (76)).
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário; precisa de tipos
+
+import std/sources
+import std/definitions
+
+-- 1 = { () } tem um só elemento; uma relação 1 -> 1 é uma matriz 1x1: [0] = bot ou [1].
+--   top liga tudo a tudo: liga () a ()                -> [1]
+--   ! : A -> 1 manda tudo para (); em 1 -> 1, ! () = () -> [1]
+--   id liga cada elemento a si próprio                 -> [1]
+-- top = ! = id = [1] no tipo 1 -> 1.

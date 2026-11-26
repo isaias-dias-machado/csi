@@ -1,0 +1,14 @@
+-- Sebenta v3 · Aula 3 · Exercício 15 — as duas funções constantes Being → Bank
+--
+-- Identificar as duas funções constantes no tipo Being → Bank e o seu papel no puzzle.
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário
+
+import std/sources
+import std/definitions
+
+-- Bank tem 2 elementos => 2 constantes:
+--   Left  x = Left    ("todos na margem esquerda")  -> estado inicial
+--   Right x = Right   ("todos na margem direita")   -> estado final (objetivo)
+-- O puzzle vai de where = Left até where = Right sem violar "ninguém come ninguém".
+-- Nos estados constantes ker where = top (exercício 8): estão todos juntos com o Farmer.

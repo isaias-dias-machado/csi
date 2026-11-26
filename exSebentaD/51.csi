@@ -1,0 +1,15 @@
+-- Sebenta v3 · Aula 6 · Exercício 51 — comparar f e g na pré-ordem de injetividade
+--
+-- f, g : W → … com W = {"Armstrong", "Albert", "Minho", "Braga"}: f dá a letra inicial,
+-- g o número de letras. Qual se verifica: f ⩽ g, g ⩽ f, ambas, nenhuma?
+--
+-- Estado: não é uma prova calculacional: resolução em comentário (funções concretas)
+
+import std/sources
+import std/definitions
+
+-- ker f: Armstrong ~ Albert ('A');   ker g: Minho ~ Braga (5)
+-- f ⩽ g sse kernel g c kernel f (definitions.less_injective): Minho ~ Braga mas 'M' /= 'B' -> falso
+-- g ⩽ f sse kernel f c kernel g: Armstrong ~ Albert mas 9 /= 6                        -> falso
+-- Resposta 4: nenhuma (f e g são incomparáveis).
+-- Bónus: kernel f n kernel g = id, logo id ⩽ split f g: f e g são complementares.

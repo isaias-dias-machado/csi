@@ -1,0 +1,36 @@
+-- Sebenta v3 · Aula 3 · Exercício 12 — cross é uma bijeção
+--
+-- cross : Bank → Bank com Left cross Right e Right cross Left. Porque é uma bijeção?
+--
+-- Estado: só com a std original; os factos da matriz (cross° = cross, cross · cross = id) entram como hipóteses
+
+import std/sources
+import std/definitions
+
+-- Matriz: exatamente um 1 em cada linha e coluna -> bijetiva (Taxonomy using matrices).
+-- Por cálculo, com os factos lidos da matriz:
+
+theorem ex12_cross_kernel
+  given cross^ = cross /\ cross ; cross = id
+proof
+  kernel cross
+  = { definitions.kernel }
+  cross^ ; cross
+  = { given cross^ = cross }
+  cross ; cross
+  = { given cross ; cross = id }
+  id
+
+theorem ex12_cross_image
+  given cross^ = cross /\ cross ; cross = id
+proof
+  image cross
+  = { definitions.image }
+  cross ; cross^
+  = { given cross^ = cross }
+  cross ; cross
+  = { given cross ; cross = id }
+  id
+
+-- ker cross = id e img cross = id: inteira, simples, injetiva e sobrejetiva, logo bijeção.
+-- Também: cross^ = cross é função, logo cross é bijeção { sources.bijection_converse }.

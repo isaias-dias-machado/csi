@@ -1,0 +1,25 @@
+-- Sebenta v3 · Aula 5 · Exercício 35 — os quadrados da outra regra de shunting
+--
+-- Desenhar os quadrados mágicos de Shunting rules (26): R · f° ⊆ S ≡ R ⊆ S · f.
+-- Tipos: f : A → B, R : A → C, S : B → C.
+--
+-- Estado: só com a std original
+
+import std/sources
+import std/definitions
+
+--   A --f°--> B          A --id--> A
+--   R    ⊆    id    ≡    R    ⊆    f
+--   C --S---> B          C --S---> B
+theorem ex35_shunting_squares
+  given function f
+proof
+  R ; f^ c S ; id
+  <=> { sources.identity_right }
+  R ; f^ c S
+  <=> { sources.shunt_right }
+  R c S ; f
+  <=> { sources.identity_right }
+  R ; id c S ; f
+
+-- A seta f° de cima "roda" para o lado direito e passa a f.

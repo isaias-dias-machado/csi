@@ -1,0 +1,23 @@
+-- Sebenta v3 · Aula 5 · Exercício 41 — o quadrado mais geral para M · R° ⊆ ⊤ · M
+--
+-- Generalizar o exercício 1: quadrado mais geral para M · R° ⊆ ⊤ · M (slides (88)).
+-- Tipos: M : X → Y, R : X → X, ⊤ : Y → Y.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; um passo de lógica de predicados em falta (???)
+
+import std/sources
+import std/definitions
+
+theorem ex41_meaning
+proof
+  M ; R^ c top ; M
+  <=> { sources.pointwise_inclusion, sources.pointwise_composition, sources.pointwise_converse }
+  <forall y, x :: <exists x' :: y M x' /\ x R x'> => <exists y' :: y top y' /\ y' M x>>
+  <=> { sources.pointwise_top, sources.and_commutative, sources.and_true }
+  <forall y, x :: <exists x' :: y M x' /\ x R x'> => <exists y' :: y' M x>>
+  <=> { ??? lógica de predicados }
+  <forall x, x' :: x R x' /\ <exists y :: y M x'> => <exists y' :: y' M x>>
+
+-- "se x' é usado por M e x R x', então x também é usado por M":
+-- o conjunto dos valores usados por M é fechado para trás por R.
+-- No exercício 1: M = S e R^ = succ.

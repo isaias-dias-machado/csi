@@ -1,0 +1,45 @@
+-- Sebenta v3 · Aula 6 · Exercício 54 — f · g · f = f
+--
+-- Sejam f e g com f · g · f = f (slides (111)). Mostrar f · g = id ⇐ f sobrejetiva
+-- (slides (112)) e g · f = id ⇐ f injetiva (slides (113)).
+-- f função sobrejetiva dá img f = id, e f função injetiva dá ker f = id (Criteria (23)
+-- e Ping-pong (16)); estes factos entram como hipóteses.
+--
+-- Estado: só com a std original; img f = id / ker f = id entram como hipóteses
+
+import std/sources
+import std/definitions
+
+theorem ex54_surjective
+  given function f /\ image f = id /\ f ; g ; f = f
+proof
+  f ; g
+  = { sources.identity_right }
+  f ; g ; id
+  = { given image f = id }
+  f ; g ; image f
+  = { definitions.image }
+  f ; g ; f ; f^
+  = { given f ; g ; f = f }
+  f ; f^
+  = { definitions.image }
+  image f
+  = { given image f = id }
+  id
+
+theorem ex54_injective
+  given function f /\ kernel f = id /\ f ; g ; f = f
+proof
+  g ; f
+  = { sources.identity_left }
+  id ; g ; f
+  = { given kernel f = id }
+  kernel f ; g ; f
+  = { definitions.kernel }
+  f^ ; f ; g ; f
+  = { given f ; g ; f = f }
+  f^ ; f
+  = { definitions.kernel }
+  kernel f
+  = { given kernel f = id }
+  id

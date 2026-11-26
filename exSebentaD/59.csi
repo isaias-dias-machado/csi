@@ -1,0 +1,14 @@
+-- Sebenta v3 · Aula 6 · Exercício 59 — projeções, injeções e isomorfismos
+--
+-- Recordando slides (81) (f · r = id ⇒ f sobrejetiva e r injetiva): porque é que π1 e π2
+-- são sobrejetivas? E i1 e i2 injetivas? Porque é que os isomorfismos são bijeções?
+--
+-- Estado: não é uma prova calculacional: resolução em comentário (usa slides (81) e cancelamentos)
+
+import std/sources
+import std/definitions
+
+-- p1 : A x B -> A sobrejetiva: p1 ; split id b = id (b constante qualquer; B não vazio).
+-- i1 : A -> A + B injetiva:    either id h ; i1 = id (h : B -> A qualquer) { sources.either_cancel_1 }.
+-- Isomorfismos: f ; g = id => f sobrejetiva; g ; f = id => f injetiva; f é função,
+-- logo f é injetiva e sobrejetiva: uma bijeção { definitions.bijection }.

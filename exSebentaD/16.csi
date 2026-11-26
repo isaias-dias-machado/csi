@@ -1,0 +1,22 @@
+-- Sebenta v3 · Aula 3 · Exercício 16 — f° = g em pointwise
+--
+-- Converter f° = g para notação pointwise e verificar o seu significado.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex16_converse_equals_pointwise
+  given function f /\ function g
+proof
+  f^ = g
+  <=> { sources.pointwise_equality }
+  <forall a, b :: a f^ b <=> a g b>
+  <=> { sources.pointwise_converse }
+  <forall a, b :: b f a <=> a g b>
+  <=> { sources.pointwise_function }
+  <forall a, b :: b = f a <=> a = g b>
+
+-- g é a inversa de f: com a := g b fica b = f (g b) (f ; g = id),
+-- com b := f a fica a = g (f a) (g ; f = id).

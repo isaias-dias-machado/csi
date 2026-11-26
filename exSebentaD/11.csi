@@ -1,0 +1,27 @@
+-- Sebenta v3 · Aula 3 · Exercício 11 — f é bijeção sse f° é função
+--
+-- Provar que uma função f é uma bijeção sse o seu converso f° é uma função
+-- (Thumb rules (136)).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (function, bijection, duality_*)
+
+import std/sources
+import std/definitions
+
+theorem ex11_bijection_iff_converse_function
+proof
+  function f /\ function (f^)
+  <=> { definitions.function }
+  (simple f /\ entire f) /\ (simple (f^) /\ entire (f^))
+  <=> { definitions.simple, definitions.entire }
+  (image f c id /\ id c kernel f) /\ (image (f^) c id /\ id c kernel (f^))
+  <=> { sources.duality_image, sources.duality_kernel }
+  (image f c id /\ id c kernel f) /\ (kernel f c id /\ id c image f)
+  <=> { definitions.simple, definitions.entire, definitions.injective, definitions.surjective }
+  (simple f /\ entire f) /\ (injective f /\ surjective f)
+  <=> { definitions.function }
+  function f /\ injective f /\ surjective f
+  <=> { definitions.bijection }
+  bijection f
+
+-- Pelo meio também se vê que ker f = id e img f = id { sources.ping_pong }.

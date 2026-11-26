@@ -1,0 +1,31 @@
+-- Sebenta v3 · Aula 6 · Exercício 55 — imagem de um either
+--
+-- Mostrar img [R, S] = img R ∪ img S (Image of either (124)) e img i1 ∪ img i2 = id
+-- (slides (118)).  Notação: either R S = [R, S].
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex55_image_of_either
+proof
+  image (either R S)
+  = { definitions.image }
+  either R S ; (either R S)^
+  = { sources.divide_and_conquer }         -- Q := R, U := S
+  R ; R^ u S ; S^
+  = { definitions.image }
+  image R u image S
+
+theorem ex55_injections_cover
+proof
+  image i1 u image i2
+  = { definitions.image }
+  i1 ; i1^ u i2 ; i2^
+  = { sources.divide_and_conquer }         -- da direita para a esquerda
+  either i1 i2 ; (either i1 i2)^
+  = { sources.either_reflexion }
+  id ; id^
+  = { sources.id_converse, sources.identity_right }
+  id

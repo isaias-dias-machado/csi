@@ -1,0 +1,19 @@
+-- Sebenta v3 · Aula 7 · Exercício 65 — porque é que a monotonia do converso é uma equivalência?
+--
+-- Porque é que R ⊆ S ⇒ R° ⊆ S° (Converse (80)) pode ser reforçada para uma equivalência?
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (converse_universal)
+
+import std/sources
+import std/definitions
+
+theorem ex65_converse_isomorphism
+proof
+  R^ c S^
+  <=> { sources.converse_universal }          -- X := R, Y := S^
+  R c S^^
+  <=> { sources.involution }
+  R c S
+
+-- É Isomorphism (8): os dois adjuntos da GC do converso são a mesma função, que é a
+-- sua própria inversa; o converso não perde informação.

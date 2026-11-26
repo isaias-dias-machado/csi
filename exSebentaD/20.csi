@@ -1,0 +1,39 @@
+-- Sebenta v3 · Aula 4 · Exercício 20 — inteira e simples a partir do shunting
+--
+-- Deduzir id ⊆ ker f (f inteira) e img f ⊆ id (f simples) a partir das regras de
+-- shunting, Shunting rules (25) ou (26).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std. Atenção: com function f = simple f /\ entire f, o given já dá a conclusão; aqui o given só serve para poder usar o shunting (ver dúvida definição vs source)
+
+import std/sources
+import std/definitions
+
+theorem ex20_function_is_entire
+  given function f
+proof
+  entire f
+  <=> { definitions.entire }
+  id c kernel f
+  <=> { definitions.kernel }
+  id c f^ ; f
+  <=> { sources.shunt_left }           -- R := id, S := f
+  f ; id c f
+  <=> { sources.identity_right }
+  f c f
+  <=> { sources.reflexion }
+  TRUE
+
+theorem ex20_function_is_simple
+  given function f
+proof
+  simple f
+  <=> { definitions.simple }
+  image f c id
+  <=> { definitions.image }
+  f ; f^ c id
+  <=> { sources.shunt_right }          -- R := f, S := id
+  f c id ; f
+  <=> { sources.identity_left }
+  f c f
+  <=> { sources.reflexion }
+  TRUE

@@ -1,0 +1,28 @@
+-- Sebenta v3 · Aula 4 · Exercício 30 — a versão injetiva
+--
+-- Deduzir de Union simplicity (45) a regra correspondente para relações injetivas.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex30_union_injectivity
+proof
+  injective (M u N)
+  <=> { definitions.injective }
+  kernel (M u N) c id
+  <=> { sources.duality_image }
+  image ((M u N)^) c id
+  <=> { definitions.simple }
+  simple ((M u N)^)
+  <=> { sources.converse_union }
+  simple (M^ u N^)
+  <=> { sources.union_simplicity }
+  simple (M^) /\ simple (N^) /\ M^ ; N^^ c id
+  <=> { sources.involution }
+  simple (M^) /\ simple (N^) /\ M^ ; N c id
+  <=> { definitions.simple, sources.duality_image, definitions.injective }
+  injective M /\ injective N /\ M^ ; N c id
+
+-- M^ ; N c id: se b M a e b N a' então a = a'.

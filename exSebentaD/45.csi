@@ -1,0 +1,21 @@
+-- Sebenta v3 · Aula 6 · Exercício 45 — Universal-pairing (106) quando tudo são funções
+--
+-- O que se pode dizer de Universal-pairing (106) se X, R e S forem funções?
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); as condições laterais (split f g e p1 ; k são funções) ficam por descarregar
+
+import std/sources
+import std/definitions
+
+theorem ex45_universal_pairing_functions
+  given function k /\ function f /\ function g
+proof
+  k c split f g
+  <=> { sources.pairing_universal }
+  p1 ; k c f /\ p2 ; k c g
+  <=> { sources.equality_functions }          -- três vezes
+  p1 ; k = f /\ p2 ; k = g
+
+-- e do lado esquerdo, também por equality_functions: k = split f g.
+-- É a propriedade universal do produto de Cálculo de Programas:
+-- split f g é a única função que, seguida de p1 e p2, dá f e g.

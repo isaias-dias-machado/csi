@@ -1,0 +1,30 @@
+-- Sebenta v3 · Aula 5 · Exercício 36 — o que dizem estes quadrados sobre R?
+--
+-- Quadrado da esquerda id · id ⊆ R° · R; quadrado da direita R · R° ⊆ id · id.
+--
+-- Estado: só com a std original
+
+import std/sources
+import std/definitions
+
+theorem ex36_left_square
+proof
+  id ; id c R^ ; R
+  <=> { sources.identity_right }
+  id c R^ ; R
+  <=> { definitions.kernel }
+  id c kernel R
+  <=> { definitions.entire }
+  entire R
+
+theorem ex36_right_square
+proof
+  R ; R^ c id ; id
+  <=> { sources.identity_right }
+  R ; R^ c id
+  <=> { definitions.image }
+  image R c id
+  <=> { definitions.simple }
+  simple R
+
+-- Juntos: R é uma função (é slides (40) com R no lugar de f).

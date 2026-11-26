@@ -1,0 +1,64 @@
+-- Sebenta v3 · Aula 5 · Exercício 32 — regras práticas por monotonia
+--
+-- Provar: menor que injetiva (simples) é injetiva (simples); maior que inteira
+-- (sobrejetiva) é inteira (sobrejetiva); R ∩ S é injetiva (simples) se R ou S o for;
+-- R ∪ S é inteira (sobrejetiva) se R ou S o for. (Thumb rules (139), (140).)
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (rule_a, rule_b, intersection_universal); um passo de lógica em falta (???)
+
+import std/sources
+import std/definitions
+
+theorem ex32_smaller_than_injective
+  given R c S /\ injective S
+proof
+  injective R
+  <=> { definitions.injective, definitions.kernel }
+  R^ ; R c id
+  <=  { sources.rule_a [M := S^ ; S], given injective S }     -- regra A
+  R^ ; R c S^ ; S
+  <=  { given R c S }                                          -- à esquerda, dentro do converso
+  S^ ; R c S^ ; S
+  <=  { given R c S }
+  S^ ; S c S^ ; S
+  <=> { sources.reflexion }
+  TRUE
+
+theorem ex32_larger_than_entire
+  given R c S /\ entire R
+proof
+  entire S
+  <=> { definitions.entire, definitions.kernel }
+  id c S^ ; S
+  <=  { sources.rule_b [M := R^ ; R], given entire R }        -- regra B
+  R^ ; R c S^ ; S
+  <=  { given R c S }
+  S^ ; R c S^ ; S
+  <=  { given R c S }
+  S^ ; S c S^ ; S
+  <=> { sources.reflexion }
+  TRUE
+
+-- R n S c R (cancelamento de Universal property (47)); com a regra 1, R n S é injetiva
+-- (simples) se R o for.
+theorem ex32_intersection_lower_bound
+proof
+  R n S c R
+  <=  { sources.and_weakening }
+  R n S c R /\ R n S c S
+  <=> { sources.intersection_universal }
+  R n S c R n S
+  <=> { sources.reflexion }
+  TRUE
+
+-- R c R u S (cancelamento de Universal property (39)); com a regra 2, R u S é inteira
+-- (sobrejetiva) se R o for.
+theorem ex32_union_upper_bound
+proof
+  R c R u S
+  <=  { sources.and_weakening }
+  R c R u S /\ S c R u S
+  <=> { sources.union_universal }
+  R u S c R u S
+  <=> { sources.reflexion }
+  TRUE

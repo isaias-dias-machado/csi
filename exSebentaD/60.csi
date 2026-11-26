@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 6 · Exercício 60 — soma de quadrados mágicos
+--
+-- Provar slides (124): se P · R ⊆ S · Q e P′ · R′ ⊆ S′ · Q′ então
+-- (P + P′) · (R + R′) ⊆ (S + S′) · (Q + Q′).  Notação: sum R S = R + S.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex60_sum_of_squares
+  given P ; R c S ; Q /\ P' ; R' c S' ; Q'
+proof
+  sum P P' ; sum R R' c sum S S' ; sum Q Q'
+  <=> { definitions.sum }                     -- só no primeiro fator de cada lado
+  either (i1 ; P) (i2 ; P') ; sum R R' c either (i1 ; S) (i2 ; S') ; sum Q Q'
+  <=> { sources.sum_absorption }
+  either (i1 ; P ; R) (i2 ; P' ; R') c either (i1 ; S ; Q) (i2 ; S' ; Q')
+  <=> { definitions.either }                  -- monotonia do either: desdobrar
+  i1 ; P ; R ; i1^ u i2 ; P' ; R' ; i2^ c i1 ; S ; Q ; i1^ u i2 ; S' ; Q' ; i2^
+  <=  { given P ; R c S ; Q }
+  i1 ; S ; Q ; i1^ u i2 ; P' ; R' ; i2^ c i1 ; S ; Q ; i1^ u i2 ; S' ; Q' ; i2^
+  <=  { given P' ; R' c S' ; Q' }
+  i1 ; S ; Q ; i1^ u i2 ; S' ; Q' ; i2^ c i1 ; S ; Q ; i1^ u i2 ; S' ; Q' ; i2^
+  <=> { sources.reflexion }
+  TRUE

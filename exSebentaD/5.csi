@@ -1,0 +1,23 @@
+-- Sebenta v3 · Aula 2 · Exercício 5 — cupões fora do prazo (mercearia da D. Acácia)
+--
+-- Encontrar o quadrado mágico para: os cupões não podem ser usados depois da sua
+-- data de validade. Leitura: date : Sale → Date, expiry : Cupon → Date,
+-- Used : Cupon → Sale (s Used c: o cupão c foi usado na venda s), leq = (≤) em Date.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; só com a std original (shunt_left)
+
+import std/sources
+import std/definitions
+
+theorem ex5_coupon_expiry
+  given function date /\ function expiry
+proof
+  date ; Used c leq ; expiry
+  <=> { sources.shunt_left }
+  Used c date^ ; leq ; expiry
+  <=> { sources.pointwise_inclusion }
+  <forall s, c :: s Used c => s (date^ ; leq ; expiry) c>
+  <=> { sources.guardanapo }
+  <forall s, c :: s Used c => (date s) leq (expiry c)>
+
+-- Se o cupão c foi usado na venda s, a data da venda é <= à validade de c.

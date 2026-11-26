@@ -1,0 +1,30 @@
+-- Sebenta v3 · Aula 5 · Exercício 34 — composição de quadrados
+--
+-- Provar slides (83) (colar na horizontal) e slides (84) (colar na vertical).
+--
+-- Estado: só com a std original (reflexion, acrescentada abaixo de Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex34_horizontal
+  given P ; R c S ; Q /\ Q ; R' c S' ; Q'
+proof
+  P ; R ; R' c S ; S' ; Q'
+  <=  { given P ; R c S ; Q }           -- à esquerda
+  S ; Q ; R' c S ; S' ; Q'
+  <=  { given Q ; R' c S' ; Q' }
+  S ; S' ; Q' c S ; S' ; Q'
+  <=> { sources.reflexion }
+  TRUE
+
+theorem ex34_vertical
+  given P ; R c S ; Q /\ P' ; S c S' ; Q'
+proof
+  P' ; P ; R c S' ; Q' ; Q
+  <=  { given P ; R c S ; Q }
+  P' ; S ; Q c S' ; Q' ; Q
+  <=  { given P' ; S c S' ; Q' }
+  S' ; Q' ; Q c S' ; Q' ; Q
+  <=> { sources.reflexion }
+  TRUE

@@ -1,0 +1,43 @@
+-- Sebenta v3 · Aula 3 · Exercício 14 — where é uma função
+--
+-- where : Being → Bank: todos estão em alguma margem; ninguém está nas duas margens.
+-- Exprimir em termos relacionais e concluir que where é uma função.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+-- "todos estão em alguma margem" = where é inteira
+theorem ex14_where_entire
+proof
+  entire where
+  <=> { definitions.entire }
+  id c kernel where
+  <=> { definitions.kernel }
+  id c where^ ; where
+  <=> { sources.pointwise_inclusion }
+  <forall x, y :: y id x => y (where^ ; where) x>
+  <=> { sources.pointwise_id, sources.trading_forall, sources.one_point_forall }
+  <forall x :: x (where^ ; where) x>
+  <=> { sources.pointwise_composition, sources.pointwise_converse }
+  <forall x :: <exists m :: m where x /\ m where x>>
+  <=> { sources.and_idempotent }
+  <forall x :: <exists m :: m where x>>
+
+-- "ninguém está nas duas margens" = where é simples
+theorem ex14_where_simple
+proof
+  simple where
+  <=> { definitions.simple }
+  image where c id
+  <=> { definitions.image }
+  where ; where^ c id
+  <=> { sources.pointwise_inclusion }
+  <forall m, m' :: m' (where ; where^) m => m' id m>
+  <=> { sources.pointwise_composition, sources.pointwise_converse, sources.pointwise_id }
+  <forall m, m' :: <exists x :: m' where x /\ m where x> => m' = m>
+  <=> { ??? lógica de predicados: (<exists x :: P> => Q) <=> <forall x :: P => Q> }
+  <forall m', m, x :: m' where x /\ m where x => m' = m>
+
+-- where inteira e simples => where é uma função { definitions.function }

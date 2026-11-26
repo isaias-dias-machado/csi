@@ -1,0 +1,37 @@
+-- Sebenta v3 · Aula 7 · Exercício 62 — a divisão à esquerda
+--
+-- Definir X \ Y = (Y° / X°)° (slides (130)) e deduzir Pointwise-\ (58) e
+-- R · X ⊆ Y ≡ X ⊆ R \ Y (Universal-\ (57)).
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...> (só a 1.ª prova); usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex62_pointwise_left_division
+proof
+  a (R \ S) c
+  <=> { sources.left_division_definition }
+  a (S^ / R^)^ c
+  <=> { sources.pointwise_converse }
+  c (S^ / R^) a
+  <=> { sources.pointwise_division_right }
+  <forall b : a R^ b : c S^ b>
+  <=> { sources.pointwise_converse }          -- duas vezes
+  <forall b : b R a : b S c>
+
+theorem ex62_universal_left_division
+proof
+  R ; X c Y
+  <=> { sources.isomorphism }
+  (R ; X)^ c Y^
+  <=> { sources.contravariance }
+  X^ ; R^ c Y^
+  <=> { sources.relation_universal_division_right }
+  X^ c Y^ / R^
+  <=> { sources.converse_universal }
+  X c (Y^ / R^)^
+  <=> { sources.left_division_definition }
+  X c R \ Y
+
+-- R \ Y é a maior X com R ; X c Y.

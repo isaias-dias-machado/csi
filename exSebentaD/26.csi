@@ -1,0 +1,43 @@
+-- Sebenta v3 · Aula 4 · Exercício 26 — jogos em casa e fora
+--
+-- home, away : G → T e date : G → D. Mostrar que id ⊆ (away/home) · (away/home)
+-- (slides (60)) captura um dos requisitos (qual?) e que equivale a home · away° ser simétrica.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...> na 1.ª parte; a 2.ª parte usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+-- Significado de slides (60): requisito (c), para cada jogo em casa há outro fora
+theorem ex26_meaning
+  given function home /\ function away
+proof
+  id c fdiv away home ; fdiv away home
+  <=> { sources.pointwise_inclusion, sources.pointwise_id, sources.trading_forall, sources.one_point_forall }
+  <forall g :: g (fdiv away home ; fdiv away home) g>
+  <=> { sources.pointwise_composition }
+  <forall g :: <exists g' :: g (fdiv away home) g' /\ g' (fdiv away home) g>>
+  <=> { definitions.fdiv, sources.identity_right, sources.guardanapo, sources.pointwise_id }
+  <forall g :: <exists g' :: home g = away g' /\ home g' = away g>>
+
+-- slides (60) equivale a home ; away^ ser simétrica
+theorem ex26_symmetric
+  given function home /\ function away
+proof
+  symmetric (home ; away^)
+  <=> { definitions.symmetric }
+  home ; away^ c (home ; away^)^
+  <=> { sources.contravariance }
+  home ; away^ c away^^ ; home^
+  <=> { sources.involution }
+  home ; away^ c away ; home^
+  <=> { sources.shunt_right }              -- away é função
+  home c away ; home^ ; away
+  <=> { sources.identity_right }
+  home ; id c away ; home^ ; away
+  <=> { sources.shunt_left }               -- home é função
+  id c home^ ; away ; home^ ; away
+  <=> { definitions.fdiv }                 -- duas vezes
+  id c fdiv away home ; fdiv away home
+
+-- t (home ; away^) t' diz "t já recebeu t' em casa"; simétrica = "e t' também recebeu t".

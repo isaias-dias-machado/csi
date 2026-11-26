@@ -1,0 +1,22 @@
+-- Sebenta v3 · Aula 6 · Exercício 56 — o converso de in para Maybe
+--
+-- in : 1 + A → Maybe A, in = [Nothing, Just]. Mostrar que R = i1 · Nothing° ∪ i2 · Just°
+-- é uma função.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex56_R_is_converse_of_in
+proof
+  (either Nothing Just)^
+  = { definitions.either }
+  (Nothing ; i1^ u Just ; i2^)^
+  = { sources.converse_union }
+  (Nothing ; i1^)^ u (Just ; i2^)^
+  = { sources.contravariance, sources.involution }
+  i1 ; Nothing^ u i2 ; Just^
+
+-- Logo R = in^. Como in é um isomorfismo, é uma bijeção (exercício 59), e o converso
+-- de uma bijeção é uma função { sources.bijection_converse }: R é o "out" de Maybe.

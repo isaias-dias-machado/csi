@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 2 · Exercício 3 — para funções, inclusão e igualdade coincidem
+--
+-- Usar slides (7) (f = g ≡ ⟨∀ a :: f a = g a⟩), Pointwise (10) e cálculo de predicados
+-- para mostrar que f ⊆ g ⇒ f = g. (É Equality (27).)
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex3_inclusion_is_equality_for_functions
+  given function f /\ function g
+proof
+  f c g
+  <=> { sources.pointwise_inclusion }
+  <forall a, b :: b f a => b g a>
+  <=> { sources.pointwise_function }
+  <forall a, b :: b = f a => b = g a>
+  <=> { sources.trading_forall, sources.nesting_forall }
+  <forall a :: <forall b : b = f a : b = g a>>
+  <=> { sources.one_point_forall }
+  <forall a :: f a = g a>
+  <=> { sources.function_equality }
+  f = g

@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 7 · Exercício 63 — propriedades de take por igualdade indireta
+--
+-- Usando só length ys ≤ n ∧ ys ⪯ xs ≡ ys ⪯ take n xs (slides (138)) e igualdade indireta,
+-- provar take 0 xs = [ ], take n [ ] = [ ] e take (length xs) xs = xs.
+--
+-- Estado: não é uma prova calculacional: resolução em comentário (raciocínio sobre listas e números, fora do cálculo de relações)
+
+import std/sources
+import std/definitions
+
+-- take 0 xs = [ ]:
+--   ys ⪯ take 0 xs
+--   <=> { slides (138), n := 0 }          length ys <= 0 /\ ys ⪯ xs
+--   <=> { length ys <= 0 <=> ys = [ ] }   ys = [ ] /\ ys ⪯ xs
+--   <=> { Leibniz ; [ ] ⪯ xs }            ys = [ ]
+--   <=> { ys ⪯ [ ] <=> ys = [ ] }         ys ⪯ [ ]
+--   :: { igualdade indireta }
+--
+-- take n [ ] = [ ]:
+--   ys ⪯ take n [ ]  <=>  length ys <= n /\ ys ⪯ [ ]  <=>  length [ ] <= n /\ ys = [ ]
+--                    <=>  ys = [ ]  <=>  ys ⪯ [ ]     :: { igualdade indireta }
+--
+-- take (length xs) xs = xs:
+--   ys ⪯ take (length xs) xs  <=>  length ys <= length xs /\ ys ⪯ xs
+--                             <=>  ys ⪯ xs   (ys ⪯ xs já implica o 1.º conjunto)
+--   :: { igualdade indireta }

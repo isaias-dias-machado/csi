@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 2 · Exercício 6 — só o dono usa o cupão (mercearia da D. Acácia)
+--
+-- Encontrar o quadrado mágico para: os cupões só podem ser usados pelos clientes que
+-- são seus donos. client : Sale → Client, cupon : Cupon → Client (o dono do cupão).
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; só com a std original (shunt_left, identity)
+
+import std/sources
+import std/definitions
+
+theorem ex6_only_owner_uses_coupon
+  given function client /\ function cupon
+proof
+  client ; Used c id ; cupon
+  <=> { sources.identity_left }
+  client ; Used c cupon
+  <=> { sources.shunt_left }
+  Used c client^ ; cupon
+  <=> { sources.identity_right }
+  Used c client^ ; id ; cupon
+  <=> { sources.pointwise_inclusion, sources.guardanapo }
+  <forall s, c :: s Used c => (client s) id (cupon c)>
+  <=> { sources.pointwise_id }
+  <forall s, c :: s Used c => client s = cupon c>
+
+-- O cliente da venda onde c foi usado é o dono de c.

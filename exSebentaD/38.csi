@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 5 · Exercício 38 — que regra resulta de juntar estes quadrados?
+--
+-- Juntando os quatro quadrados da grelha 2×2 (id/S°/R° em cima, S/R/id em baixo),
+-- que regra prática se obtém?
+--
+-- Estado: só com a std original (reflexion, acrescentada abaixo de Teste)
+
+import std/sources
+import std/definitions
+
+-- Colando os quadrados obtém-se S ; S^ c id a partir de S c R e R ; R^ c id:
+-- "menor que simples é simples" (Thumb rules (139)). Diretamente:
+theorem ex38_smaller_than_simple
+  given S c R /\ simple R
+proof
+  simple S
+  <=> { definitions.simple, definitions.image }
+  S ; S^ c id
+  <=  { given S c R }                  -- à esquerda
+  R ; S^ c id
+  <=  { given S c R }                  -- à esquerda, dentro do converso
+  R ; R^ c id
+  <=> { given simple R }
+  TRUE

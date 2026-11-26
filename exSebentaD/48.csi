@@ -1,0 +1,25 @@
+-- Sebenta v3 · Aula 6 · Exercício 48 — swap é uma bijeção
+--
+-- Provar que swap = ⟨π2, π1⟩ é uma bijeção (Thumb rules (136)), assumindo Converse-∩ (51).
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex48_swap_is_its_converse
+proof
+  (split p2 p1)^
+  = { definitions.split }
+  (p1^ ; p2 n p2^ ; p1)^
+  = { sources.converse_intersection }
+  (p1^ ; p2)^ n (p2^ ; p1)^
+  = { sources.contravariance, sources.involution }
+  p2^ ; p1 n p1^ ; p2
+  = { sources.intersection_commutative }
+  p1^ ; p2 n p2^ ; p1
+  = { definitions.split }
+  split p2 p1
+
+-- swap^ = swap e swap é função, logo swap^ é função: swap é bijeção
+-- { sources.bijection_converse }. (E swap ; swap = id.)

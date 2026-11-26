@@ -1,0 +1,60 @@
+-- Sebenta v3 · Aula 5 · Exercício 39 — a pré-ordem induzida por um atributo
+--
+-- (≤f) = f° · (≤) · f. 1. Mostrar que é uma pré-ordem. 2. Mostrar que (em geral) não é
+-- uma ordem total, mesmo que (≤) o seja.  Escrevo L para (≤) e induced L f para (≤f).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (induced, distribution_3)
+
+import std/sources
+import std/definitions
+
+theorem ex39_reflexive
+  given function f /\ reflexive L
+proof
+  reflexive (induced L f)
+  <=> { definitions.reflexive, definitions.induced }
+  id c f^ ; L ; f
+  <=  { given reflexive L }            -- id c L, à direita
+  id c f^ ; id ; f
+  <=> { sources.identity_right }
+  id c f^ ; f
+  <=> { definitions.kernel, definitions.entire }
+  entire f
+  <=> { given function f }
+  TRUE
+
+theorem ex39_transitive
+  given function f /\ transitive L
+proof
+  transitive (induced L f)
+  <=> { definitions.transitive, definitions.induced }
+  f^ ; L ; f ; f^ ; L ; f c f^ ; L ; f
+  <=  { given function f }             -- f ; f^ c id (simples), à esquerda
+  f^ ; L ; id ; L ; f c f^ ; L ; f
+  <=> { sources.identity_right }
+  f^ ; L ; L ; f c f^ ; L ; f
+  <=  { given transitive L }           -- L ; L c L, à esquerda
+  f^ ; L ; f c f^ ; L ; f
+  <=> { sources.reflexion }
+  TRUE
+
+-- 2. Antissimetria: com L ordem parcial (L n L^ = id)
+theorem ex39_antisymmetry_part
+  given function f /\ L n L^ = id
+proof
+  induced L f n (induced L f)^
+  = { definitions.induced }
+  f^ ; L ; f n (f^ ; L ; f)^
+  = { sources.contravariance, sources.involution }
+  f^ ; L ; f n f^ ; L^ ; f
+  = { sources.distribution_3 }
+  f^ ; (L n L^) ; f
+  = { given L n L^ = id }
+  f^ ; id ; f
+  = { sources.identity_right }
+  f^ ; f
+  = { definitions.kernel }
+  kernel f
+
+-- A antissimetria pede kernel f c id (f injetiva), o que em geral não acontece:
+-- dois alunos diferentes com a mesma nota. É uma pré-ordem total, não uma ordem total.

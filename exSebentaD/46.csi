@@ -1,0 +1,41 @@
+-- Sebenta v3 · Aula 6 · Exercício 46 — distributividade sem condições
+--
+-- (P ∩ Q) · S = (P · S) ∩ (Q · S) e R · (P ∩ Q) = (R · P) ∩ (R · Q) valem sem condições
+-- se uma de R ou S for simples e a outra injetiva. Qual?
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (distribution_1, distribution_2, or_weakening)
+
+import std/sources
+import std/definitions
+
+theorem ex46_right_distribution
+  given simple S
+proof
+  (P n Q) ; S = P ; S n Q ; S
+  <=  { sources.distribution_1 }
+  Q ; image S c Q \/ P ; image S c P
+  <=  { sources.or_weakening }
+  P ; image S c P
+  <=  { given simple S }                 -- image S c id, à esquerda
+  P ; id c P
+  <=> { sources.identity_right }
+  P c P
+  <=> { sources.reflexion }
+  TRUE
+
+theorem ex46_left_distribution
+  given injective R
+proof
+  R ; (P n Q) = R ; P n R ; Q
+  <=  { sources.distribution_2 }
+  kernel R ; P c P \/ kernel R ; Q c Q
+  <=  { sources.or_weakening }
+  kernel R ; P c P
+  <=  { given injective R }              -- kernel R c id, à esquerda
+  id ; P c P
+  <=> { sources.identity_left }
+  P c P
+  <=> { sources.reflexion }
+  TRUE
+
+-- S simples para a direita, R injetiva para a esquerda.

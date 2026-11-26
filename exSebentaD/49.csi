@@ -1,0 +1,29 @@
+-- Sebenta v3 · Aula 6 · Exercício 49 — leis do produto
+--
+-- Deduzir id × id = id (Functor-×-id (112)) e (R × S) · (P × Q) = (R · P) × (S · Q)
+-- (Functor-×-composition (113)).  Notação: prod R S = R × S.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); split p1 p2 = id fica por justificar (???)
+
+import std/sources
+import std/definitions
+
+theorem ex49_prod_id
+proof
+  prod id id
+  = { definitions.prod }
+  split (id ; p1) (id ; p2)
+  = { sources.identity_left }
+  split p1 p2
+  = { ??? split p1 p2 = id: exercício 45 com k := id }
+  id
+
+theorem ex49_prod_composition
+proof
+  prod R S ; prod P Q
+  = { definitions.prod }                  -- só no segundo fator
+  prod R S ; split (P ; p1) (Q ; p2)
+  = { sources.prod_absorption }
+  split (R ; P ; p1) (S ; Q ; p2)
+  = { definitions.prod }
+  prod (R ; P) (S ; Q)

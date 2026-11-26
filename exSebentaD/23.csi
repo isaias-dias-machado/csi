@@ -1,0 +1,31 @@
+-- Sebenta v3 · Aula 4 · Exercício 23 — a circunferência unitária é simétrica
+--
+-- R : ℝ → ℝ, y R x ≡ y² + x² = 1, isto é R = ((1−) · sq)/sq (slides (58)).
+-- Sem usar slides (57), mostrar que R é simétrica. Escrevo onem para (1−).
+-- Facto usado (1 − (1 − x) = x, logo pelo exercício 16): onem° = onem.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (fdiv e Properties (34), (35)); o facto onem° = onem entra como hipótese
+
+import std/sources
+import std/definitions
+
+theorem ex23_unit_circle_is_symmetric
+  given function sq /\ function onem /\ onem^ = onem
+proof
+  (fdiv (onem ; sq) sq)^
+  = { sources.fdiv_converse }              -- Properties (34)
+  fdiv sq (onem ; sq)
+  = { sources.identity_left }              -- sq = id ; sq
+  fdiv (id ; sq) (onem ; sq)
+  = { sources.fdiv_composition }           -- Properties (35)
+  sq^ ; fdiv id onem ; sq
+  = { definitions.fdiv }
+  sq^ ; onem^ ; id ; sq
+  = { sources.identity_right }
+  sq^ ; onem^ ; sq
+  = { given onem^ = onem }
+  sq^ ; onem ; sq
+  = { definitions.fdiv }
+  fdiv (onem ; sq) sq
+
+-- R^ = R, logo R é simétrica { definitions.symmetric, Symmetric (86) }.

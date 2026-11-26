@@ -1,0 +1,49 @@
+-- Sebenta v3 · Aula 3 · Exercício 18 — propriedades da divisão de funções
+--
+-- Verificar Properties (33) f/id = f, (35) (f·h)/(g·k) = k° · (f/g) · h,
+-- (36) f/f = ker f e (34) (f/g)° = g/f.  Notação: fdiv f g = f/g = g° · f (Definition (32)).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (fdiv, id_converse)
+
+import std/sources
+import std/definitions
+
+theorem ex18_properties_33
+proof
+  fdiv f id
+  = { definitions.fdiv }
+  id^ ; f
+  = { sources.id_converse }
+  id ; f
+  = { sources.identity_left }
+  f
+
+theorem ex18_properties_35
+proof
+  fdiv (f ; h) (g ; k)
+  = { definitions.fdiv }
+  (g ; k)^ ; f ; h
+  = { sources.contravariance }
+  k^ ; g^ ; f ; h
+  = { definitions.fdiv }
+  k^ ; fdiv f g ; h
+
+theorem ex18_properties_36
+proof
+  fdiv f f
+  = { definitions.fdiv }
+  f^ ; f
+  = { definitions.kernel }
+  kernel f
+
+theorem ex18_properties_34
+proof
+  (fdiv f g)^
+  = { definitions.fdiv }
+  (g^ ; f)^
+  = { sources.contravariance }
+  f^ ; g^^
+  = { sources.involution }
+  f^ ; g
+  = { definitions.fdiv }
+  fdiv g f

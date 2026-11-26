@@ -1,0 +1,35 @@
+-- Sebenta v3 · Aula 3 · Exercício 8 — funções constantes
+--
+-- Seja k̲ : A → K a função "sempre k". Calcular ker k̲, b̲ · c̲° e img k̲.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; precisa de constantes como valores (k a = k) (???)
+
+import std/sources
+import std/definitions
+
+theorem ex8_kernel_of_constant
+  given constant_function k
+proof
+  a' (kernel k) a
+  <=> { definitions.kernel }
+  a' (k^ ; k) a
+  <=> { sources.identity_right }
+  a' (k^ ; id ; k) a
+  <=> { sources.guardanapo }
+  (k a') id (k a)
+  <=> { sources.pointwise_id }
+  k a' = k a
+  <=> { ??? k é constante: k a' = k = k a }
+  TRUE
+  <=> { sources.pointwise_top }
+  a' top a
+
+-- logo kernel k = top (todas as entradas têm a mesma imagem).
+--
+-- b · c° (b, c constantes):
+--   y (b ; c^) x  <=>  <exists a :: y b a /\ x c a>  <=>  <exists a :: y = b /\ x = c>
+--                 <=>  y = b /\ x = c                 (a não ocorre; A não vazio)
+--   b ; c^ só liga o ponto b ao ponto c (matriz com um único 1).
+--
+-- img k = k ; k^ é o caso anterior com b = c = k:
+--   y (k ; k^) x  <=>  y = k /\ x = k     (corefletiva com um único 1, na posição k)

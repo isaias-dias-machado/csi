@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 2 · Exercício 4 — funções periódicas
+--
+-- Mostrar que o quadrado f · (+t0) ⊆ id · f diz que f é periódica com período t0.
+-- Escrevo shift para a função (+t0).
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std; aritmética e aplicação de composições (???)
+
+import std/sources
+import std/definitions
+
+theorem ex4_periodic_function
+  given function f /\ function shift
+proof
+  f ; shift c id ; f
+  <=> { sources.identity_left }
+  f ; shift c f
+  <=> { sources.equality_functions }      -- f ; shift e f são funções
+  f ; shift = f
+  <=> { sources.function_equality }
+  <forall t :: (f ; shift) t = f t>
+  <=> { ??? (f ; g) t = f (g t) e shift t = t + t0 }
+  <forall t :: f (t + t0) = f t>
+
+-- Truque: como os dois lados são funções, a inclusão passa logo a igualdade.

@@ -1,0 +1,49 @@
+-- Sebenta v3 · Aula 4 · Exercício 28 — o kernel de uma função é uma equivalência
+--
+-- Sabendo que f · f° · f = f (slides (68)), provar que ker f = f/f é uma equivalência.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (function_property)
+
+import std/sources
+import std/definitions
+
+theorem ex28_kernel_reflexive
+  given function f
+proof
+  reflexive (kernel f)
+  <=> { definitions.reflexive }
+  id c kernel f
+  <=> { definitions.entire }
+  entire f
+  <=> { given function f }
+  TRUE
+
+theorem ex28_kernel_symmetric
+proof
+  symmetric (kernel f)
+  <=> { definitions.symmetric }
+  kernel f c (kernel f)^
+  <=> { definitions.kernel }
+  f^ ; f c (f^ ; f)^
+  <=> { sources.contravariance }
+  f^ ; f c f^ ; f^^
+  <=> { sources.involution }
+  f^ ; f c f^ ; f
+  <=> { sources.reflexion }
+  TRUE
+
+theorem ex28_kernel_transitive
+  given function f
+proof
+  transitive (kernel f)
+  <=> { definitions.transitive }
+  kernel f ; kernel f c kernel f
+  <=> { definitions.kernel }
+  f^ ; f ; f^ ; f c f^ ; f
+  <=> { sources.function_property }        -- f ; f^ ; f = f
+  f^ ; f c f^ ; f
+  <=> { sources.reflexion }
+  TRUE
+
+-- Reflexiva, simétrica e transitiva: equivalence (kernel f) { definitions.equivalence }.
+-- Em palavras: a (ker f) b sse a e b têm o mesmo f.

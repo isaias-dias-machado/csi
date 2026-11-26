@@ -1,0 +1,36 @@
+-- Sebenta v3 · Aula 4 · Exercício 24 — relações co-transitivas (densas)
+--
+-- R é co-transitiva (densa) sse ⟨∀ b, a : b R a : ⟨∃ c : b R c : c R a⟩⟩ (slides (59)).
+-- Escrever em PF; dar um exemplo co-transitivo e outro que não seja.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex24_cotransitive_pointfree
+proof
+  <forall b, a : b R a : <exists c : b R c : c R a>>
+  <=> { sources.trading_exists, sources.pointwise_composition }
+  <forall b, a : b R a : b (R ; R) a>
+  <=> { sources.trading_forall, sources.pointwise_inclusion }
+  R c R ; R
+  <=> { definitions.cotransitive }
+  cotransitive R
+
+-- Exemplo co-transitivo: (<) em ℝ   (b < a => b < (a+b)/2 < a).
+-- Exemplo não co-transitivo: (<) em ℕ (0 < 1, mas não há c com 0 < c < 1).
+
+-- Qualquer relação reflexiva é co-transitiva:
+theorem ex24_reflexive_is_cotransitive
+  given reflexive R
+proof
+  cotransitive R
+  <=> { definitions.cotransitive }
+  R c R ; R
+  <=> { sources.identity_right }
+  R ; id c R ; R
+  <=  { given reflexive R }        -- id c R, à esquerda de c
+  R ; R c R ; R
+  <=> { sources.reflexion }
+  TRUE

@@ -1,0 +1,18 @@
+-- Sebenta v3 · Aula 7 · Exercício 66 — modus ponens
+--
+-- Mostrar que R ∩ (R ⇒ Y) ⊆ Y.  Notação: rimp R Y = R ⇒ Y.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (implication_universal, reflexion)
+
+import std/sources
+import std/definitions
+
+theorem ex66_modus_ponens
+proof
+  R n rimp R Y c Y
+  <=> { sources.implication_universal }       -- X := rimp R Y
+  rimp R Y c rimp R Y
+  <=> { sources.reflexion }
+  TRUE
+
+-- Pointwise: b R a /\ (b R a => b Y a) => b Y a, para cada par (b, a).

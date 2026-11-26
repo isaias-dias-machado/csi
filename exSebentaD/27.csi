@@ -1,0 +1,38 @@
+-- Sebenta v3 · Aula 4 · Exercício 27 — mentores entre os professores
+--
+-- (1) Especificar em PF "os mentores dos alunos estão entre os seus professores";
+-- (2) porque é que teaches/isMentorOf ⊆ Enrols é inadequado?
+-- teaches : Course → Teacher, isMentorOf : Student → Teacher (funções),
+-- Enrols : Course → Student (s Enrols c), IsPartOf : Course → Program.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+-- (1) "o mentor de s ensina alguma disciplina em que s está inscrito"
+theorem ex27_mentor_teaches
+  given function isMentorOf /\ function teaches
+proof
+  isMentorOf c teaches ; Enrols^
+  <=> { sources.pointwise_inclusion, sources.pointwise_function }
+  <forall t, s :: t = isMentorOf s => t (teaches ; Enrols^) s>
+  <=> { sources.trading_forall, sources.one_point_forall }
+  <forall s :: (isMentorOf s) (teaches ; Enrols^) s>
+  <=> { sources.pointwise_composition, sources.pointwise_converse, sources.pointwise_function }
+  <forall s :: <exists c :: isMentorOf s = teaches c /\ s Enrols c>>
+
+-- (2) a proposta alternativa
+theorem ex27_wrong_spec
+  given function isMentorOf /\ function teaches
+proof
+  fdiv teaches isMentorOf c Enrols
+  <=> { definitions.fdiv }
+  isMentorOf^ ; teaches c Enrols
+  <=> { sources.identity_right }
+  isMentorOf^ ; id ; teaches c Enrols
+  <=> { sources.pointwise_inclusion, sources.guardanapo, sources.pointwise_id }
+  <forall s, c :: isMentorOf s = teaches c => s Enrols c>
+
+-- Isto obriga o aluno a estar inscrito em TODAS as disciplinas do mentor (outra coisa),
+-- e é trivialmente verdade se o mentor não der nenhuma disciplina: inadequado.

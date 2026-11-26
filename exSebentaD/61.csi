@@ -1,0 +1,46 @@
+-- Sebenta v3 · Aula 7 · Exercício 61 — divisão por funções, por ⊥ e por id
+--
+-- Provar R · f = R / f° (Misc. (60)), R / ⊥ = ⊤ (Misc. (62)) e R / id = R (Misc. (63)),
+-- e verificar o significado pointwise.
+--
+-- Estado: precisa de igualdade indireta (17), que a linguagem ainda não tem: a prova pára no último passo; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex61_division_by_function
+  given function f
+proof
+  Z c X / f^
+  <=> { sources.relation_universal_division_right }   -- Universal-/ (55)
+  Z ; f^ c X
+  <=> { sources.shunt_right }
+  Z c X ; f
+-- :: { igualdade indireta (17) }   X / f^ = X ; f
+
+theorem ex61_division_by_bot
+proof
+  Z c X / bot
+  <=> { sources.relation_universal_division_right }
+  Z ; bot c X
+  <=> { sources.absorption_right }
+  bot c X
+  <=> { sources.bot_least }
+  TRUE
+  <=> { sources.top_greatest }
+  Z c top
+-- :: { igualdade indireta (17) }   X / bot = top
+
+theorem ex61_division_by_id
+proof
+  Z c X / id
+  <=> { sources.relation_universal_division_right }
+  Z ; id c X
+  <=> { sources.identity_right }
+  Z c X
+-- :: { igualdade indireta (17) }   X / id = X
+
+-- Pointwise de X / f^:  c (X / f^) a <=> <forall b : a f^ b : c X b>
+--                                    <=> <forall b : b = f a : c X b> <=> c X (f a)
+-- que é c (X ; f) a pelo guardanapo.
+-- X / bot: <forall b : FALSE : c X b> <=> TRUE (quem não escolhe voo nenhum "só voa" em todas).

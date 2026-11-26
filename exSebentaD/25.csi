@@ -1,0 +1,55 @@
+-- Sebenta v3 · Aula 4 · Exercício 25 — critérios (85)–(89) em pointwise
+--
+-- Expandir Transitive (85), Symmetric (86), Anti-symmetric (87), Irreflexive (88) e
+-- Connected (89) para notação pointwise.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std; alguns passos de lógica de predicados em falta (???)
+
+import std/sources
+import std/definitions
+
+theorem ex25_transitive_pointwise
+proof
+  transitive R
+  <=> { definitions.transitive }
+  R ; R c R
+  <=> { sources.pointwise_inclusion, sources.pointwise_composition }
+  <forall b, a :: <exists c :: b R c /\ c R a> => b R a>
+  <=> { ??? (<exists c :: P> => Q) <=> <forall c :: P => Q> }
+  <forall a, b, c :: b R c /\ c R a => b R a>
+
+theorem ex25_symmetric_pointwise
+proof
+  symmetric R
+  <=> { definitions.symmetric }
+  R c R^
+  <=> { sources.pointwise_inclusion, sources.pointwise_converse }
+  <forall a, b :: b R a => a R b>
+
+theorem ex25_antisymmetric_pointwise
+proof
+  antisymmetric R
+  <=> { definitions.antisymmetric }
+  R n R^ c id
+  <=> { sources.pointwise_inclusion, sources.pointwise_intersection, sources.pointwise_converse, sources.pointwise_id }
+  <forall a, b :: b R a /\ a R b => b = a>
+
+theorem ex25_irreflexive_pointwise
+proof
+  irreflexive R
+  <=> { definitions.irreflexive }
+  R n id = bot
+  <=> { sources.pointwise_equality, sources.pointwise_intersection, sources.pointwise_id, sources.pointwise_bot }
+  <forall a, b :: (b R a /\ b = a) <=> FALSE>
+  <=> { ??? (P <=> FALSE) <=> ~P ; sources.one_point_forall }
+  <forall a :: ~(a R a)>
+
+theorem ex25_connected_pointwise
+proof
+  connected R
+  <=> { definitions.connected }
+  R u R^ = top
+  <=> { sources.pointwise_equality, sources.pointwise_union, sources.pointwise_converse, sources.pointwise_top }
+  <forall a, b :: (b R a \/ a R b) <=> TRUE>
+  <=> { ??? (P <=> TRUE) <=> P }
+  <forall a, b :: b R a \/ a R b>

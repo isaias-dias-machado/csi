@@ -1,0 +1,31 @@
+-- Sebenta v3 · Aula 6 · Exercício 52 — o padrão agenda, trocado
+--
+-- who, where, when : Meeting → …. As asserções who ⩽ ⟨where, when⟩ e when ⩽ ⟨who, where⟩
+-- exprimem factos razoáveis?
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); a passagem a pointwise fica em comentário
+
+import std/sources
+import std/definitions
+
+theorem ex52_who_by_where_when
+proof
+  less_injective who (split where when)
+  <=> { definitions.less_injective }
+  kernel (split where when) c kernel who
+  <=> { sources.kernel_of_pairing }
+  kernel where n kernel when c kernel who
+
+-- pointwise: where m1 = where m2 /\ when m1 = when m2 => who m1 = who m2
+-- razoável: uma sala não tem duas reuniões de pessoas diferentes à mesma hora.
+
+theorem ex52_when_by_who_where
+proof
+  less_injective when (split who where)
+  <=> { definitions.less_injective }
+  kernel (split who where) c kernel when
+  <=> { sources.kernel_of_pairing }
+  kernel who n kernel where c kernel when
+
+-- pointwise: who m1 = who m2 /\ where m1 = where m2 => when m1 = when m2
+-- pouco razoável: a mesma pessoa nunca podia voltar ao mesmo sítio noutra altura.

@@ -1,0 +1,34 @@
+-- Sebenta v3 · Aula 6 · Exercício 50 — prova da fusão do pairing
+--
+-- Mostrar Pairing-fusion (107) a partir de Distribution (1) (48), e que não é precisa
+-- condição lateral se Q for simples.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); distribution_1 é uma lei condicional (=  <=  condição)
+
+import std/sources
+import std/definitions
+
+theorem ex50_pairing_fusion
+  given simple Q
+proof
+  split R S ; Q
+  = { definitions.split }
+  (p1^ ; R n p2^ ; S) ; Q
+  = { sources.distribution_1 }            -- condição: ver ex50_side_condition
+  p1^ ; R ; Q n p2^ ; S ; Q
+  = { definitions.split }
+  split (R ; Q) (S ; Q)
+
+-- a condição lateral de distribution_1 é verdadeira quando Q é simples:
+theorem ex50_side_condition
+  given simple Q
+proof
+  p1^ ; R ; image Q c p1^ ; R
+  <=  { given simple Q }                  -- image Q c id, à esquerda
+  p1^ ; R ; id c p1^ ; R
+  <=> { sources.identity_right }
+  p1^ ; R c p1^ ; R
+  <=> { sources.reflexion }
+  TRUE
+
+-- Em particular para funções: Pairing-fusion (functions) (108).

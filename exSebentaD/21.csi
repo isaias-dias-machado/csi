@@ -1,0 +1,19 @@
+-- Sebenta v3 · Aula 4 · Exercício 21 — a relação "joga contra"
+--
+-- b R a ≡ "a equipa b está a jogar contra a equipa a neste momento". É reflexiva?
+-- irreflexiva? transitiva? antissimétrica? simétrica? conexa?
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário
+
+import std/sources
+import std/definitions
+
+-- reflexiva (id c R)?          nenhuma equipa joga contra si própria -> não
+-- irreflexiva (R n id = bot)?   pela mesma razão                     -> sim
+-- simétrica (R c R^)?           se b joga contra a, a joga contra b   -> sim
+-- transitiva (R ; R c R)?       b R a e a R b dariam b R b            -> não
+-- antissimétrica (R n R^ c id)? R n R^ = R tem pares com b /= a       -> não
+-- conexa (R u R^ = top)?        (a, a) nunca está lá                  -> não
+--
+-- R é irreflexiva e simétrica. (Sem jogos, R = bot: trivialmente transitiva e antissimétrica.)
+-- Bónus: cada equipa joga no máximo um jogo de cada vez, logo R é simples e injetiva.

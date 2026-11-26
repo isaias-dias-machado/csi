@@ -1,0 +1,21 @@
+-- Sebenta v3 · Aula 6 · Exercício 47 — kernel de um pairing
+--
+-- Deduzir de ⟨R, S⟩° · ⟨X, Y⟩ = (R° · X) ∩ (S° · Y) (Pairing and converse (109)) que
+-- ker ⟨R, S⟩ = ker R ∩ ker S (Kernel of pairing (110)).
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex47_kernel_of_pairing
+proof
+  kernel (split R S)
+  = { definitions.kernel }
+  (split R S)^ ; split R S
+  = { sources.pairing_converse }          -- X := R, Y := S
+  R^ ; R n S^ ; S
+  = { definitions.kernel }
+  kernel R n kernel S
+
+-- Duas entradas são confundidas por split R S sse são confundidas por R e por S.

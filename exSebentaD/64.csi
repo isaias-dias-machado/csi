@@ -1,0 +1,23 @@
+-- Sebenta v3 · Aula 7 · Exercício 64 — os dois adjuntos são monótonos
+--
+-- Deduzir de f b ⊑ a ≡ b ≤ g a (slides (133)) que f e g são monótonas.
+--
+-- Estado: não é uma prova calculacional: resolução em comentário (raciocínio com elementos e ordens; precisa de instanciar a GC)
+
+import std/sources
+import std/definitions
+
+-- Cancelamentos: com a := f b,  f b ⊑ f b <=> b <= g (f b), logo  b <= g (f b);
+--                com b := g a,  f (g a) ⊑ a <=> g a <= g a, logo  f (g a) ⊑ a.
+--
+-- f monótona:
+--   f b ⊑ f b'
+--   <=> { slides (133), a := f b' }   b <= g (f b')
+--   <=  { <= transitiva }             b <= b' /\ b' <= g (f b')
+--   <=> { cancelamento }              b <= b'
+--
+-- g monótona:
+--   g a <= g a'
+--   <=> { slides (133), b := g a }    f (g a) ⊑ a'
+--   <=  { ⊑ transitiva }              f (g a) ⊑ a /\ a ⊑ a'
+--   <=> { cancelamento }              a ⊑ a'

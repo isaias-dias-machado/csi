@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 5 · Exercício 37 — as constantes têm kernel ⊤
+--
+-- O quadrado k̲ · R ⊆ id · k̲ (Natural property (28)). Aplicar o shunting e concluir
+-- que ker k̲ = ⊤.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (natural_property, top_greatest)
+
+import std/sources
+import std/definitions
+
+theorem ex37_constant_kernel_is_top
+  given constant_function k
+proof
+  kernel k = top
+  <=> { sources.ping_pong }
+  kernel k c top /\ top c kernel k
+  <=> { sources.top_greatest, sources.and_commutative, sources.and_true }
+  top c kernel k
+  <=> { definitions.kernel }
+  top c k^ ; k
+  <=> { sources.shunt_left }           -- k é função (constant_function k); R := top
+  k ; top c k
+  <=> { sources.natural_property }     -- k ; R c k com R := top
+  TRUE
+
+-- Porque vale k ; R c k? c (k ; R) a <=> <exists b :: c = k /\ b R a> => c = k <=> c k a.

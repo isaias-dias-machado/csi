@@ -1,0 +1,21 @@
+-- Sebenta v3 · Aula 6 · Exercício 58 — a lei da troca
+--
+-- Usando Universal (118) e Pairing-fusion (functions) (108), provar
+-- [⟨R, S⟩, ⟨Q, V⟩] = ⟨[R, Q], [S, V]⟩ (Exchange law (125)).
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste)
+
+import std/sources
+import std/definitions
+
+theorem ex58_exchange_law
+proof
+  split (either R Q) (either S V) = either (split R S) (split Q V)
+  <=> { sources.either_universal }
+  split (either R Q) (either S V) ; i1 = split R S /\ split (either R Q) (either S V) ; i2 = split Q V
+  <=> { sources.pairing_fusion_functions }    -- i1 e i2 são funções
+  split (either R Q ; i1) (either S V ; i1) = split R S /\ split (either R Q ; i2) (either S V ; i2) = split Q V
+  <=> { sources.either_cancel_1, sources.either_cancel_2 }
+  split R S = split R S /\ split Q V = split Q V
+  <=> { sources.equality_reflexive, sources.and_true }
+  TRUE

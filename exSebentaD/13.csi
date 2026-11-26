@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 3 · Exercício 13 — propriedades da relação Eats
+--
+-- Verificar se Eats (Fox > Goose > Beans) é simples, inteira, injetiva, sobrejetiva,
+-- reflexiva e corefletiva.
+--
+-- Estado: não é uma prova calculacional (modelação / matrizes): resolução em comentário
+
+import std/sources
+import std/definitions
+
+--   Eats    Fox Goose Beans Farmer        (linha b, coluna a: b Eats a)
+--   Fox      0    1     0     0
+--   Goose    0    0     1     0
+--   Beans    0    0     0     0
+--   Farmer   0    0     0     0
+--
+-- simples?     <= um 1 por coluna  -> sim
+-- inteira?     >= um 1 por coluna  -> não (colunas Fox e Farmer)
+-- injetiva?    <= um 1 por linha   -> sim
+-- sobrejetiva? >= um 1 por linha   -> não (linhas Beans e Farmer)
+-- reflexiva?   id c Eats           -> não (diagonal a 0)
+-- corefletiva? Eats c id           -> não (há 1's fora da diagonal)
+--
+-- Eats é simples e injetiva, e mais nada.

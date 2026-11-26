@@ -1,0 +1,24 @@
+-- Sebenta v3 · Aula 6 · Exercício 53 — ⟨R, id⟩ é sempre injetiva
+--
+-- Porque é que ⟨R, id⟩ é sempre injetiva?
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); o cancelamento R n S c S cita o exercício 32 (???)
+
+import std/sources
+import std/definitions
+
+theorem ex53_split_id_is_injective
+proof
+  injective (split R id)
+  <=> { definitions.injective }
+  kernel (split R id) c id
+  <=> { sources.kernel_of_pairing }
+  kernel R n kernel id c id
+  <=> { definitions.kernel }               -- kernel id = id^ ; id
+  kernel R n id^ ; id c id
+  <=> { sources.id_converse, sources.identity_right }
+  kernel R n id c id
+  <=> { ??? cancelamento de Universal property (47): R n S c S (exercício 32) }
+  TRUE
+
+-- Thumb rules (141): split R id é sempre injetiva.

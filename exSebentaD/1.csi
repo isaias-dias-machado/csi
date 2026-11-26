@@ -1,0 +1,29 @@
+-- Sebenta v3 · Aula 2 · Exercício 1 — numeração sequencial de alunos
+--
+-- Seja a S n o facto "ao aluno a foi atribuído o número n". Verificar que
+-- S · succ ⊆ ⊤ · S significa que os números são atribuídos de forma sequencial.
+-- Tipos: S : N → A, succ : N → N, ⊤ : A → A.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; um passo usa uma lei de lógica ainda em falta (???)
+
+import std/sources
+import std/definitions
+
+theorem ex1_sequential_numbering
+  given function succ
+proof
+  S ; succ c top ; S
+  <=> { sources.pointwise_inclusion }
+  <forall a, n :: a (S ; succ) n => a (top ; S) n>
+  <=> { sources.pointwise_composition }
+  <forall a, n :: <exists m :: a S m /\ m succ n> => <exists b :: a top b /\ b S n>>
+  <=> { sources.pointwise_function, sources.pointwise_top, sources.and_commutative, sources.and_true }
+  <forall a, n :: <exists m :: m = succ n /\ a S m> => <exists b :: b S n>>
+  <=> { sources.trading_exists, sources.one_point_exists }
+  <forall a, n :: a S (succ n) => <exists b :: b S n>>
+  <=> { ??? a não ocorre à direita: <forall a :: P a => Q> <=> (<exists a :: P a> => Q) }
+  <forall n :: <exists a :: a S (succ n)> => <exists b :: b S n>>
+
+-- "se o número n+1 já foi dado a alguém, então o n também foi".
+-- Repetindo: se n foi atribuído, então n-1, ..., 0 também foram (sem buracos).
+-- Nota: o quadrado não obriga S a ser função (um aluno pode ter dois números).

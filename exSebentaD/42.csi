@@ -1,0 +1,37 @@
+-- Sebenta v3 · Aula 5 · Exercício 42 — tipos e significado de três asserções
+--
+-- Tipo e significado pointwise de M · N° ⊆ ⊥ (slides (89)), M · N° ⊆ id (slides (90))
+-- e M° · ⊤ · N ⊆ ⊤ (slides (91)).
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+-- slides (89)   M : A -> B, N : A -> C, M ; N^ : C -> B
+theorem ex42_disjoint_domains
+proof
+  M ; N^ c bot
+  <=> { sources.pointwise_inclusion, sources.pointwise_composition, sources.pointwise_converse, sources.pointwise_bot }
+  <forall b, c :: <exists a :: b M a /\ c N a> => FALSE>
+  <=> { ??? (P => FALSE) <=> ~P }
+  <forall b, c :: ~<exists a :: b M a /\ c N a>>
+-- nenhum a está no domínio de M e no de N ao mesmo tempo.
+
+-- slides (90)   M, N : A -> B
+theorem ex42_agree
+proof
+  M ; N^ c id
+  <=> { sources.pointwise_inclusion, sources.pointwise_composition, sources.pointwise_converse, sources.pointwise_id }
+  <forall b, c :: <exists a :: b M a /\ c N a> => b = c>
+  <=> { ??? (<exists a :: P> => Q) <=> <forall a :: P => Q> }
+  <forall a, b, c :: b M a /\ c N a => b = c>
+-- onde M e N estão ambas definidas, dão o mesmo resultado (condição de Union simplicity (45)).
+
+-- slides (91)   M : X -> A, N : Y -> B, M^ ; top ; N : Y -> X — é sempre verdade
+theorem ex42_always_true
+proof
+  M^ ; top ; N c top
+  <=> { sources.top_greatest }
+  TRUE
+-- As versões interessantes: M^ ; top ; N c bot (M ou N vazia) ou top c M^ ; top ; N.

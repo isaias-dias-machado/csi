@@ -1,0 +1,32 @@
+-- Sebenta v3 · Aula 3 · Exercício 9 — regras práticas do converso
+--
+-- Recorrer a Duality (21), (22) e Criteria (23) para provar: o converso de uma relação
+-- injetiva é simples (e vice-versa); o converso de uma relação inteira é sobrejetivo
+-- (e vice-versa). (Thumb rules (137) e (138).)
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (duality_image)
+
+import std/sources
+import std/definitions
+
+theorem ex9_converse_simple_iff_injective
+proof
+  simple (R^)
+  <=> { definitions.simple }
+  image (R^) c id
+  <=> { sources.duality_image }
+  kernel R c id
+  <=> { definitions.injective }
+  injective R
+
+theorem ex9_converse_surjective_iff_entire
+proof
+  surjective (R^)
+  <=> { definitions.surjective }
+  id c image (R^)
+  <=> { sources.duality_image }
+  id c kernel R
+  <=> { definitions.entire }
+  entire R
+
+-- "Vice-versa": aplicar o mesmo a R^ e usar sources.involution.

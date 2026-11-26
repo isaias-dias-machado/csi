@@ -1,0 +1,58 @@
+-- Sebenta v3 · Aula 2 · Exercício 7 — identidade, ⊥ e associatividade
+--
+-- Usar Pointwise def. (1), Pointwise (10) e cálculo de predicados para mostrar
+-- R · id = R = id · R (Identity (3)), R · ⊥ = ⊥ = ⊥ · R (Absorption (14)) e
+-- R · (S · T) = (R · S) · T (Associativity (2)).
+-- Cada cálculo é pointwise; a igualdade point-free sai depois por Pointwise (15).
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+theorem ex7_identity_right
+proof
+  b (R ; id) a
+  <=> { sources.pointwise_composition }
+  <exists c :: b R c /\ c id a>
+  <=> { sources.pointwise_id, sources.trading_exists }
+  <exists c : c = a : b R c>
+  <=> { sources.one_point_exists }
+  b R a
+
+theorem ex7_identity_left
+proof
+  b (id ; R) a
+  <=> { sources.pointwise_composition }
+  <exists c :: b id c /\ c R a>
+  <=> { sources.pointwise_id, sources.trading_exists }
+  <exists c : b = c : c R a>
+  <=> { sources.one_point_exists }
+  b R a
+
+theorem ex7_absorption
+proof
+  b (R ; bot) a
+  <=> { sources.pointwise_composition }
+  <exists c :: b R c /\ c bot a>
+  <=> { sources.pointwise_bot, sources.and_false }
+  <exists c :: FALSE>
+  <=> { ??? um exists com corpo falso é falso }
+  FALSE
+  <=> { sources.pointwise_bot }
+  b bot a
+
+theorem ex7_associativity
+proof
+  b (R ; (S ; T)) a
+  <=> { sources.pointwise_composition }      -- duas vezes
+  <exists c : b R c : <exists d : c S d : d T a>>
+  <=> { sources.splitting_exists }
+  <exists d : <exists c : b R c : c S d> : d T a>
+  <=> { sources.pointwise_composition }
+  <exists d : b (R ; S) d : d T a>
+  <=> { sources.pointwise_composition }
+  b ((R ; S) ; T) a
+
+-- Por Pointwise (15) (sources.pointwise_equality): R ; id = R = id ; R,
+-- R ; bot = bot = bot ; R e R ; (S ; T) = (R ; S) ; T.

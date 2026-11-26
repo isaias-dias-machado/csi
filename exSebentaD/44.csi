@@ -1,0 +1,34 @@
+-- Sebenta v3 · Aula 6 · Exercício 44 — pairing em point-free e a sua propriedade universal
+--
+-- Mostrar que (b, c)⟨R, S⟩a ≡ b R a ∧ c S a dá ⟨R, S⟩ = π1° · R ∩ π2° · S (Pairing-def (105))
+-- e deduzir X ⊆ ⟨R, S⟩ ≡ π1 · X ⊆ R ∧ π2 · X ⊆ S (Universal-pairing (106)).
+-- Notação: split R S = ⟨R, S⟩, p1 = π1, p2 = π2.
+--
+-- Estado: precisa de constantes p1, p2, i1, i2 e usa split/prod/either/sum (acrescentados abaixo da linha Teste); a parte pointwise precisa de pares (b, c) como elementos (???)
+
+import std/sources
+import std/definitions
+
+theorem ex44_pairing_def_pointwise
+proof
+  (b, c) (p1^ ; R n p2^ ; S) a
+  <=> { sources.pointwise_intersection }
+  (b, c) (p1^ ; R) a /\ (b, c) (p2^ ; S) a
+  <=> { sources.identity_right, sources.guardanapo }       -- f := p1, g := id (e p2)
+  (p1 (b, c)) R a /\ (p2 (b, c)) S a
+  <=> { ??? p1 (b, c) = b ; p2 (b, c) = c }
+  b R a /\ c S a
+-- logo split R S = p1^ ; R n p2^ ; S { sources.pointwise_equality }
+
+theorem ex44_universal_pairing
+proof
+  X c split R S
+  <=> { definitions.split }
+  X c p1^ ; R n p2^ ; S
+  <=> { sources.intersection_universal }
+  X c p1^ ; R /\ X c p2^ ; S
+  <=> { sources.shunt_left }                  -- p1 e p2 são funções (sources.p1_function, p2_function)
+  p1 ; X c R /\ p2 ; X c S
+
+-- Lida para todo o X, é uma prova por igualdade indireta (17): split R S é a maior X
+-- com p1 ; X c R e p2 ; X c S.

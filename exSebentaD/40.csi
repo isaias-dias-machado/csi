@@ -1,0 +1,22 @@
+-- Sebenta v3 · Aula 5 · Exercício 40 — composição de funções monótonas
+--
+-- Usar slides (84) para provar que a composição de funções monótonas é monótona.
+-- monotone f L M  significa  f · L ⊆ M · f  (slides (86)).
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (monotone)
+
+import std/sources
+import std/definitions
+
+theorem ex40_monotone_composition
+  given monotone f L M /\ monotone g M N
+proof
+  monotone (g ; f) L N
+  <=> { definitions.monotone }
+  g ; f ; L c N ; g ; f
+  <=  { given monotone f L M }         -- f ; L c M ; f, à esquerda
+  g ; M ; f c N ; g ; f
+  <=  { given monotone g M N }         -- g ; M c N ; g, à esquerda
+  N ; g ; f c N ; g ; f
+  <=> { sources.reflexion }
+  TRUE

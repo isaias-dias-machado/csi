@@ -1,0 +1,71 @@
+-- Sebenta v3 · Aula 5 · Exercício 33 — a composição preserva a taxonomia
+--
+-- Provar que a composição preserva todas as classes da taxonomia. Basta as quatro de
+-- base; as outras são conjunções delas.
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std (só usa definições e givens; injetiva é o exemplo do repositório corrigido)
+
+import std/sources
+import std/definitions
+
+theorem ex33_simple_composition
+  given simple R /\ simple S
+proof
+  simple (R ; S)
+  <=> { definitions.simple, definitions.image }
+  R ; S ; (R ; S)^ c id
+  <=> { sources.contravariance }
+  R ; S ; S^ ; R^ c id
+  <=  { given simple S }                -- S ; S^ c id, à esquerda
+  R ; id ; R^ c id
+  <=> { sources.identity_right }
+  R ; R^ c id
+  <=> { given simple R }
+  TRUE
+
+theorem ex33_injective_composition
+  given injective R /\ injective S
+proof
+  injective (R ; S)
+  <=> { definitions.injective, definitions.kernel }
+  (R ; S)^ ; (R ; S) c id
+  <=> { sources.contravariance }
+  S^ ; R^ ; R ; S c id
+  <=  { given injective R }             -- R^ ; R c id, à esquerda
+  S^ ; id ; S c id
+  <=> { sources.identity_right }
+  S^ ; S c id
+  <=> { given injective S }
+  TRUE
+
+theorem ex33_entire_composition
+  given entire R /\ entire S
+proof
+  entire (R ; S)
+  <=> { definitions.entire, definitions.kernel }
+  id c (R ; S)^ ; (R ; S)
+  <=> { sources.contravariance }
+  id c S^ ; R^ ; R ; S
+  <=  { given entire R }                -- id c R^ ; R, à direita
+  id c S^ ; id ; S
+  <=> { sources.identity_right }
+  id c S^ ; S
+  <=> { given entire S }
+  TRUE
+
+theorem ex33_surjective_composition
+  given surjective R /\ surjective S
+proof
+  surjective (R ; S)
+  <=> { definitions.surjective, definitions.image }
+  id c R ; S ; (R ; S)^
+  <=> { sources.contravariance }
+  id c R ; S ; S^ ; R^
+  <=  { given surjective S }            -- id c S ; S^, à direita
+  id c R ; id ; R^
+  <=> { sources.identity_right }
+  id c R ; R^
+  <=> { given surjective R }
+  TRUE
+
+-- Logo também se preservam função, representação, abstração, injeção, sobrejeção e bijeção.

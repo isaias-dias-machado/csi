@@ -1,0 +1,44 @@
+-- Sebenta v3 · Aula 3 · Exercício 17 — quadrados que caracterizam funções
+--
+-- Que propriedades de f capturam os quadrados slides (40) e slides (41)?
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std
+
+import std/sources
+import std/definitions
+
+-- slides (40), quadrado da esquerda: f é inteira
+theorem ex17_square_entire
+proof
+  id ; id c f^ ; f
+  <=> { sources.identity_right }
+  id c f^ ; f
+  <=> { definitions.kernel }
+  id c kernel f
+  <=> { definitions.entire }
+  entire f
+
+-- slides (40), quadrado da direita: f é simples
+theorem ex17_square_simple
+proof
+  f ; f^ c id ; id
+  <=> { sources.identity_right }
+  f ; f^ c id
+  <=> { definitions.image }
+  image f c id
+  <=> { definitions.simple }
+  simple f
+
+-- slides (41): é a regra de shunting (25)
+theorem ex17_square_shunting
+  given function f
+proof
+  f ; R c id ; Q
+  <=> { sources.identity_left }
+  f ; R c Q
+  <=> { sources.shunt_left }
+  R c f^ ; Q
+  <=> { sources.identity_left }
+  id ; R c f^ ; Q
+
+-- Juntos, os dois quadrados de slides (40) dizem que f é uma função.

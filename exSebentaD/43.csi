@@ -1,0 +1,26 @@
+-- Sebenta v3 · Aula 5 · Exercício 43 — a especificação de sort
+--
+-- bag : A* → ℕ0^A conta ocorrências; ordered : A* → Bool; true é a constante True.
+-- S = bag/bag ∩ true/ordered (slides (92)). Tipo de S e operação especificada.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; usa leis/definições acrescentadas abaixo da linha Teste da std; true l = TRUE fica por justificar (???)
+
+import std/sources
+import std/definitions
+
+-- Tipo: bag/bag : A* -> A*, true/ordered : A* -> A*, logo S : A* -> A*.
+theorem ex43_sort_spec
+  given function bag /\ function ordered /\ function true
+proof
+  l' (fdiv bag bag n fdiv true ordered) l
+  <=> { sources.pointwise_intersection }
+  l' (fdiv bag bag) l /\ l' (fdiv true ordered) l
+  <=> { definitions.fdiv, sources.identity_right }
+  l' (bag^ ; id ; bag) l /\ l' (ordered^ ; id ; true) l
+  <=> { sources.guardanapo, sources.pointwise_id }
+  bag l' = bag l /\ ordered l' = true l
+  <=> { ??? true l = TRUE }
+  bag l' = bag l /\ ordered l'
+
+-- l' S l sse l' é uma permutação de l (mesmo bag) e está ordenada: S especifica a
+-- ordenação (e é até uma função, S = sort).

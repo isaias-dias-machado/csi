@@ -1,0 +1,25 @@
+-- Sebenta v3 · Aula 2 · Exercício 2 — treinadores e jogadores numa competição
+--
+-- Escrever o significado lógico do quadrado theCoachOf · Involved ⊆ PlayerOf · Involved
+-- e exprimi-lo em linguagem natural.
+-- Tipos: theCoachOf : Team → Atlet (função), Involved : Competition → Team,
+-- PlayerOf : Team → Atlet.
+--
+-- Estado: precisa de notação pointwise (quantificadores); sintaxe provisória <forall ...> / <exists ...>; um passo usa uma lei de lógica ainda em falta (???)
+
+import std/sources
+import std/definitions
+
+theorem ex2_coaches_are_players
+  given function theCoachOf
+proof
+  theCoachOf ; Involved c PlayerOf ; Involved
+  <=> { sources.pointwise_inclusion, sources.pointwise_composition }    -- slides (16)
+  <forall c, x :: <exists t :: c theCoachOf t /\ t Involved x> => <exists t' :: c PlayerOf t' /\ t' Involved x>>
+  <=> { sources.pointwise_function }
+  <forall c, x :: <exists t :: c = theCoachOf t /\ t Involved x> => <exists t' :: c PlayerOf t' /\ t' Involved x>>
+  <=> { ??? (<exists t :: P> => Q) <=> <forall t :: P => Q>, sources.trading_forall, sources.one_point_forall }
+  <forall x, t : t Involved x : <exists t' : t' Involved x : (theCoachOf t) PlayerOf t'>>
+
+-- O treinador de qualquer equipa numa competição joga também nessa competição
+-- (em alguma equipa participante): são treinadores-jogadores.

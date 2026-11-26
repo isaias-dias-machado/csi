@@ -1,0 +1,38 @@
+-- Sebenta v3 · Aula 3 · Exercício 19 — composição de divisões
+--
+-- (a) Mostrar que (f/g) · (h/f) ⊆ h/g (slides (48)).
+-- (b) Que propriedade de f transforma esta inclusão numa igualdade?
+--
+-- Estado: usa leis/definições acrescentadas abaixo da linha Teste da std; (b) tem um passo sem lei (???)
+
+import std/sources
+import std/definitions
+
+theorem ex19a_composition_of_divisions
+  given function f
+proof
+  fdiv f g ; fdiv h f c fdiv h g
+  <=> { definitions.fdiv }
+  g^ ; f ; f^ ; h c g^ ; h
+  <=  { given function f }          -- f simples: f ; f^ c id, à esquerda de c
+  g^ ; id ; h c g^ ; h
+  <=> { sources.identity_right }
+  g^ ; h c g^ ; h
+  <=> { sources.reflexion }
+  TRUE
+
+-- (b) A única inclusão foi f ; f^ c id. Se f for sobrejetiva, image f = id e há igualdade.
+theorem ex19b_equality_when_surjective
+  given function f /\ surjective f
+proof
+  fdiv f g ; fdiv h f
+  = { definitions.fdiv }
+  g^ ; f ; f^ ; h
+  = { definitions.image }
+  g^ ; image f ; h
+  = { ??? image f = id: sources.ping_pong com simple f e surjective f }
+  g^ ; id ; h
+  = { sources.identity_right }
+  g^ ; h
+  = { definitions.fdiv }
+  fdiv h g
