@@ -14,3 +14,49 @@ definition antisymmetric R : R n R^ c id
 definition irreflexive R : R n id = bot
 definition connected_strict  R : R u R^ = top
 definition connected_lax  R : R u R^ u id = top
+
+//------------------------------------------------------Teste 
+
+-- Acrescentado para os exercícios da sebenta v3 (exSebentaD/).
+-- Numeração das leis: formulário csiCalRel 2026/27, como citada na sebenta.
+
+-- taxonomia (diagrama a seguir a Criteria (23))
+definition function f : simple f /\ entire f
+definition representation R : injective R /\ entire R
+definition abstraction R : surjective R /\ simple R
+definition injection f : function f /\ injective f
+definition surjection f : function f /\ surjective f
+definition bijection f : function f /\ injective f /\ surjective f
+definition difunctional R : R ; R^ ; R c R                 -- (24)
+
+-- endo-relações (83)-(89) e classes derivadas
+definition connected R : R u R^ = top                       -- Connected (89)
+definition preorder R : reflexive R /\ transitive R
+definition partial_order R : preorder R /\ antisymmetric R
+definition linear_order R : partial_order R /\ connected R
+definition equivalence R : preorder R /\ symmetric R
+definition per R : symmetric R /\ transitive R
+definition cotransitive R : R c R ; R                      -- slides (59), exercício 24
+
+-- divisão de funções: f/g = g° · f                          -- Definition (32)
+definition fdiv f g : g^ ; f
+
+-- funções monótonas e pré-ordem induzida por um atributo  -- slides (86), Aula 5
+definition monotone f L M : f ; L c M ; f
+definition induced L f : f^ ; L ; f
+
+-- pré-ordem de injetividade: R ⩽ S ≡ ker S ⊆ ker R         -- Definition (130)
+definition less_injective R S : kernel S c kernel R
+
+-- pares e somas. p1, p2, i1, i2 são CONSTANTES (projeções e injeções):
+-- a linguagem ainda não tem forma de declarar constantes.
+definition split R S : p1^ ; R n p2^ ; S                   -- Pairing-def (105)
+definition prod R S : split (R ; p1) (S ; p2)              -- Functor-× def (111)
+definition either R S : R ; i1^ u S ; i2^                  -- Definition (119)
+definition sum R S : either (i1 ; R) (i2 ; S)              -- Functor-+-def (126)
+
+-- funções constantes: k̲ manda tudo para o mesmo valor     -- slides (25)
+definition constant_function k : function k /\ k ; top c k
+
+-- implicação relacional R ⇒ S (Aula 7): escrita "rimp R S", é um operador primitivo
+-- descrito por sources.pointwise_rimp e sources.implication_universal.

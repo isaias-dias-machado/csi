@@ -75,3 +75,183 @@ source relation_universal_division_left
   X ; Z c Y <=> Z c X \ Y
 source relation_universal_division_right
   X ; Z c Y <=> X c Y / Z
+
+
+
+
+  //------------------------------------------------------Teste 
+
+-- Acrescentado para os exercícios da sebenta v3 (exSebentaD/).
+-- Numeração das leis: formulário csiCalRel 2026/27, como citada na sebenta.
+-- NOTA: algumas leis acima desta linha estão erradas (transitivity_lower_side_raise,
+-- transitivity_upper_side_lower, monotonicity_union, equality). Não as alterei;
+-- as versões corretas estão aqui em baixo com nomes novos.
+
+-- ---------------------------------------------------------------- inclusão
+source reflexion R c R                                      -- Reflexion (11)
+source top_greatest R c top                                 -- Top and bottom (13)
+source bot_least bot c R                                    -- Top and bottom (13)
+source absorption_right R ; bot = bot                       -- Absorption (14)
+source absorption_left bot ; R = bot                        -- Absorption (14)
+
+-- regra A (baixar o lado de cima) e regra B (subir o lado de baixo), Aula 5
+source rule_a
+  given M c S:
+    R c S <= R c M
+source rule_b
+  given R c M:
+    R c S <= M c S
+
+-- ---------------------------------------------------------------- converso
+source converse_universal X^ c Y <=> X c Y^                 -- Universal-° (5)
+source id_converse id^ = id
+source top_converse top^ = top
+source bot_converse bot^ = bot
+
+-- ---------------------------------------------------------------- taxonomia
+source duality_kernel kernel (R^) = image R                 -- Duality (21)
+source duality_image image (R^) = kernel R                  -- Duality (22)
+
+-- ---------------------------------------------------------------- funções
+source equality_functions                                   -- Equality (27)
+  given function f /\ function g:
+    f c g <=> f = g
+source equality_functions_flipped                           -- Equality (27)
+  given function f /\ function g:
+    g c f <=> f = g
+source function_property                                    -- slides (68)
+  given function f:
+    f ; f^ ; f = f
+source bijection_converse                                   -- Thumb rules (136)
+  given function f:
+    bijection f <=> function (f^)
+
+source natural_property                                     -- Natural property (28)
+  given constant_function k:
+    k ; R c k
+
+-- ---------------------------------------------------------------- união e interseção
+source union_universal R u S c X <=> R c X /\ S c X         -- Universal property (39)
+source intersection_universal X c R n S <=> X c R /\ X c S  -- Universal property (47)
+source right_linearity R ; (S u Q) = R ; S u R ; Q          -- Right linearity (40)
+source left_linearity (S u Q) ; R = S ; R u Q ; R           -- Left linearity (41)
+source converse_union (R u S)^ = R^ u S^                    -- Converse-∪ (42)
+source converse_intersection (R n S)^ = R^ n S^             -- Converse-∩ (51)
+source top_union R u top = top                              -- Top-∪ (43)
+source bottom_union R u bot = R                             -- Bottom-∪ (44)
+source bottom_intersection R n bot = bot                    -- Bottom-∩
+source top_intersection R n top = R                         -- Top-∩
+source union_commutative R u S = S u R
+source intersection_commutative R n S = S n R
+source union_associative R u (S u Q) = (R u S) u Q
+source intersection_associative R n (S n Q) = (R n S) n Q
+source union_simplicity                                     -- Union simplicity (45)
+  simple (M u N) <=> simple M /\ simple N /\ M ; N^ c id
+source distribution_1                                       -- Distribution (1) (48)
+  (S n Q) ; R = S ; R n Q ; R <= Q ; image R c Q \/ S ; image R c S
+source distribution_2                                       -- Distribution (2) (49)
+  R ; (Q n S) = R ; Q n R ; S <= kernel R ; Q c Q \/ kernel R ; S c S
+source distribution_3                                       -- Distribution (3) (50)
+  given function f /\ function g:
+    g^ ; (R n S) ; f = g^ ; R ; f n g^ ; S ; f
+
+-- versão correta da monotonia da união (a de cima não tem hipótese)
+source monotonicity_union_ok                                -- Union (82)
+  R u U c S u V <= R c S /\ U c V
+
+-- ---------------------------------------------------------------- divisão de relações
+source division_bot X / bot = top                           -- Misc. (62)
+source division_id X / id = X                               -- Misc. (63)
+source division_function                                    -- Misc. (60)
+  given function f:
+    X ; f = X / f^
+source left_division_definition X \ Y = (Y^ / X^)^          -- slides (130)
+
+-- ---------------------------------------------------------------- implicação relacional
+source implication_universal R n X c Y <=> X c rimp R Y     -- Universal-⇒ (69)
+
+-- ---------------------------------------------------------------- pares e somas
+-- (p1, p2, i1, i2 são constantes; ver std/definitions.csi)
+source p1_function function p1
+source p2_function function p2
+source i1_function function i1
+source i2_function function i2
+source pairing_universal                                    -- Universal-pairing (106)
+  X c split R S <=> p1 ; X c R /\ p2 ; X c S
+source pairing_fusion                                       -- Pairing-fusion (107)
+  split R S ; Q = split (R ; Q) (S ; Q) <= R ; image Q c R \/ S ; image Q c S
+source pairing_fusion_functions                             -- Pairing-fusion (functions) (108)
+  given function f:
+    split R S ; f = split (R ; f) (S ; f)
+source pairing_converse                                     -- Pairing and converse (109)
+  (split R S)^ ; split X Y = R^ ; X n S^ ; Y
+source kernel_of_pairing kernel (split R S) = kernel R n kernel S   -- (110)
+source prod_absorption                                      -- Functor-× absorption (114)
+  prod R S ; split P Q = split (R ; P) (S ; Q)
+source either_universal                                     -- Universal (118)
+  X = either R S <=> X ; i1 = R /\ X ; i2 = S
+source either_cancel_1 either R S ; i1 = R                  -- cancelamento de (118)
+source either_cancel_2 either R S ; i2 = S                  -- cancelamento de (118)
+source either_reflexion either i1 i2 = id                   -- +-Reflexion (120)
+source either_fusion R ; either S Q = either (R ; S) (R ; Q)   -- +-Fusion (121)
+source divide_and_conquer                                   -- Divide & conquer (123)
+  either R S ; (either Q U)^ = R ; Q^ u S ; U^
+source sum_absorption                                       -- +-Absorption (127)
+  either R S ; sum P Q = either (R ; P) (S ; Q)
+
+-- ---------------------------------------------------------------- pointwise
+-- Sintaxe provisória (ainda por decidir no grupo):
+--   <forall a, b :: P>   <exists c : R : P>   b R a   f a   ~P   P \/ Q
+source pointwise_composition b (R ; S) c <=> <exists a :: b R a /\ a S c>   -- Pointwise def. (1)
+source pointwise_converse a R^ b <=> b R a                  -- Pointwise def. (4)
+source guardanapo b (f^ ; R ; g) a <=> (f b) R (g a)        -- "Guardanapo" (9)
+source pointwise_inclusion                                  -- Pointwise (10)
+  R c S <=> <forall a, b :: b R a => b S a>
+source pointwise_equality                                   -- Pointwise (15)
+  R = S <=> <forall a, b :: b R a <=> b S a>
+source pointwise_function                                   -- slides (1)
+  given function f:
+    b f a <=> b = f a
+source function_equality                                    -- slides (7)
+  given function f /\ function g:
+    f = g <=> <forall a :: f a = g a>
+source pointwise_id b id a <=> b = a
+source pointwise_top b top a <=> TRUE
+source pointwise_bot b bot a <=> FALSE
+source pointwise_union b (R u S) a <=> b R a \/ b S a       -- Pointwise definition (38)
+source pointwise_intersection b (R n S) a <=> b R a /\ b S a   -- Pointwise definition (46)
+source pointwise_division_right                             -- Pointwise-/ (56)
+  c (X / Y) a <=> <forall b : a Y b : c X b>
+source pointwise_rimp b (rimp R S) a <=> (b R a => b S a)   -- Pointwise-⇒ (68)
+
+-- ---------------------------------------------------------------- cálculo de quantificadores
+source trading_forall <forall k : R /\ S : T> <=> <forall k : R : S => T>   -- Trading-∀ (143)
+source trading_exists <exists k : R /\ S : T> <=> <exists k : R : S /\ T>   -- Trading-∃ (144)
+source one_point_forall <forall k : k = e : T> <=> T[k := e]              -- One-point-∀ (147)
+source one_point_exists <exists k : k = e : T> <=> T[k := e]              -- One-point-∃ (148)
+source nesting_forall <forall a, b : R /\ S : T> <=> <forall a : R : <forall b : S : T>>  -- (149)
+source nesting_exists <exists a, b : R /\ S : T> <=> <exists a : R : <exists b : S : T>>  -- (150)
+source splitting_exists                                     -- Splitting-∃ (156)
+  <exists j : R : <exists k : S : T>> <=> <exists k : <exists j : R : S> : T>
+
+-- ---------------------------------------------------------------- lógica proposicional
+source and_true P /\ TRUE <=> P
+source and_false P /\ FALSE <=> FALSE
+source or_false P \/ FALSE <=> P
+source and_commutative P /\ Q <=> Q /\ P
+source and_associative P /\ (Q /\ S) <=> (P /\ Q) /\ S
+source and_idempotent P /\ P <=> P
+source implies_true P => TRUE <=> TRUE
+source true_implies TRUE => P <=> P
+
+-- ---------------------------------------------------------------- divisão de funções
+source fdiv_id fdiv f id = f                                -- Properties (33)
+source fdiv_converse (fdiv f g)^ = fdiv g f                 -- Properties (34)
+source fdiv_composition                                     -- Properties (35)
+  fdiv (f ; h) (g ; k) = k^ ; fdiv f g ; h
+source fdiv_kernel fdiv f f = kernel f                      -- Properties (36)
+
+-- ---------------------------------------------------------------- lógica (mais)
+source and_weakening P <= P /\ Q
+source or_weakening P \/ Q <= P
+source equality_reflexive R = R
