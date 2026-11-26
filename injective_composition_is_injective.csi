@@ -1,0 +1,22 @@
+-- example.csi
+
+import std/sources
+import std/definitions
+
+-- showing that composition of injective relations is injective
+theorem injective_composition_is_injective
+  given injective R /\ injective S
+proof
+  injective (R ; S)
+  <=> { definitions.injective }
+  kernel (R ; S) c id
+  <=> { definitions.ker }
+  (R ; S)^ ; (R ; S) c id
+  <=> { sources.contravariance }
+  S^ ; R^ ; R ; S c id
+  <=  { sources.transitivity_lower_side_raise }
+  S^ ; id ; S c id
+  <=> { sources.identity_right }
+  S^ ; S c id 
+  <=> { given injective S }
+  TRUE

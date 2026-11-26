@@ -1,0 +1,77 @@
+import std.definitions
+
+-* rules:
+- sources should be as elementar and small as possible. If one source can be
+  derived from other sources it should be a theorem
+*-
+
+-- composition
+source composition_associativity R ; (S ; P) = (R ; S) ; P
+source identity_right R = R ; id
+source identity_left R = id ; R
+
+-- converse
+source composition_universal X^ c Y <=> X c Y^
+source involution (R^)^ = R
+source contravariance (R ; S)^ = S^ ; R^
+-- TODO derive from involution + monotonicity_converse
+source isomorphism R c S <=> R^ c S^
+
+-- relation inclusion
+-- fact reflexion R c R
+source transitivity R c Q <= R c S /\ S c Q
+-- fact bottom_and_top bot c R c top
+source absorption R ; bot = bot ; R = bot
+source ping_pong R = S <=> R c S /\ S c R
+
+-- TODO how to express indirect equality in the language?
+
+-- TODO function definition on definitions.csi
+-- functions
+source shunt_left
+  given function f:
+    f ; R c S <=> R c f^ ; S
+
+source shunt_right
+  given function f:
+    R ; f^ c S <=> R c S ; f
+
+source equality
+  given function f:
+    f c g <=> f = g <=> g c f
+
+-- TODO constant function definition
+-- TODO subdivide sources by modules?
+-- constant functions
+source constant_function_natural_property
+  given constant_function _k:
+    _k ; R c _k -- REVIEW _k ; R = _k ??
+
+-- monotonicity
+source monotonicity_composition
+  R ; Q c S ; U <= R c S /\ Q c U
+source monotonicity_composition_flipped -- REVIEW
+  Q ; R c U ; S <= R c S /\ Q c U
+
+source monotonicity_converse
+  R^ c S^ <= R c S
+
+source monotonicity_intersection
+  R n U c S n V <= R c S /\ U c V
+
+source monotonicity_union
+  R u U c S u V
+
+source transitivity_upper_side_lower
+  given M c S
+    R c M <= R c S
+
+source transitivity_lower_side_raise
+  given R c M
+    M c R <= R c S
+
+-- relation division
+source relation_universal_division_left
+  X ; Z c Y <=> Z c X \ Y
+source relation_universal_division_right
+  X ; Z c Y <=> X c Y / Z

@@ -1,0 +1,16 @@
+definition image R : R ; R^
+definition kernel R : R^ ; R
+definition simple R : image R c id
+definition injective R : kernel R c id
+definition entire R : id c kernel R
+definition surjective R : id c image R
+
+definition reflexive R : id c R
+definition coreflexive R : R c id
+
+definition transitive R : R ; R c R
+definition symmetric R : R c R^
+definition antisymmetric R : R n R^ c id
+definition irreflexive R : R n id = bot
+definition connected_strict  R : R u R^ = top
+definition connected_lax  R : R u R^ u id = top
